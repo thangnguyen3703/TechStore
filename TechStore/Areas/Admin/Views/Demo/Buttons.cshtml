@@ -1,0 +1,123 @@
+@{
+    ViewData["Title"] = "Buttons & Alerts";
+}
+
+
+    <!-- START: Page Header Banner -->
+    <div class="page-header">
+      <div>
+        <h1 class="page-title">Buttons & Alerts</h1>
+        <p class="page-subtitle">Premium reusable call-to-actions and responsive notice alert components.</p>
+      </div>
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb mb-0">
+          <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="Dashboard" asp-action="Index" class="text-decoration-none text-muted-green">Home</a></li>
+          <li class="breadcrumb-item text-muted-green">Components</li>
+          <li class="breadcrumb-item active text-main" aria-current="page">Buttons & Alerts</li>
+        </ol>
+      </nav>
+    </div>
+    <!-- END: Page Header Banner -->
+
+    <!-- START: Main Components Grid Layout -->
+    <div class="row g-4 mb-4">
+
+      <!-- Column 1: Custom Buttons -->
+      <div class="col-12 col-lg-6">
+        <div class="card border-light shadow-sm p-4 h-100">
+          <h5 class="card-title mb-4">Button Styles</h5>
+
+          <h6 class="mb-3">Solid Color Buttons</h6>
+          <div class="d-flex flex-wrap gap-2 mb-4">
+            <button class="btn-custom btn-custom-primary" type="button">Primary Button</button>
+            <button class="btn-custom btn-custom-secondary" type="button">Secondary Button</button>
+            <button class="btn-custom btn-custom-light" type="button">Light Button</button>
+            <button class="btn-custom btn-custom-danger" type="button">Danger Button</button>
+            <button class="btn-custom btn-custom-warning" type="button">Warning Button</button>
+          </div>
+
+          <h6 class="mb-3">Outline Buttons</h6>
+          <div class="d-flex flex-wrap gap-2 mb-4">
+            <button class="btn-custom btn-custom-outline-primary" type="button">Outline Primary</button>
+            <button class="btn-custom btn-custom-outline-secondary" type="button">Outline Secondary</button>
+            <button class="btn-custom btn-custom-outline-danger" type="button">Outline Danger</button>
+          </div>
+
+          <h6 class="mb-3">Buttons with Icons</h6>
+          <div class="d-flex flex-wrap gap-2 mb-4">
+            <button class="btn-custom btn-custom-primary" type="button">
+              <i class="bi bi-search"></i> Search
+            </button>
+            <button class="btn-custom btn-custom-secondary" type="button">
+              <i class="bi bi-file-earmark-arrow-down"></i> Download Report
+            </button>
+            <button class="btn-custom btn-custom-light" type="button">
+              <i class="bi bi-gear"></i> Settings
+            </button>
+          </div>
+
+          <h6 class="mb-3">Button Sizing</h6>
+          <div class="d-flex flex-wrap align-items-center gap-2">
+            <button class="btn-custom btn-custom-primary btn-custom-lg" type="button">Large Action</button>
+            <button class="btn-custom btn-custom-primary" type="button">Default Size</button>
+            <button class="btn-custom btn-custom-primary btn-custom-sm" type="button">Small Action</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Column 2: Reusable Alerts -->
+      <div class="col-12 col-lg-6">
+        <div class="card border-light shadow-sm p-4 h-100">
+          <h5 class="card-title mb-4">Notification Alerts</h5>
+
+          <!-- Alert Primary -->
+          <div class="alert-custom alert-custom-primary">
+            <i class="bi bi-info-circle-fill alert-custom-icon"></i>
+            <div class="alert-custom-content">
+              A simple custom primary warning alert. Feel free to customize its layout context.
+            </div>
+          </div>
+
+          <!-- Alert Success -->
+          <div class="alert-custom alert-custom-success">
+            <i class="bi bi-check-circle-fill alert-custom-icon"></i>
+            <div class="alert-custom-content">
+              <strong>Success Alert:</strong> Your data synchronization completed with zero error results!
+            </div>
+            <button class="alert-custom-close" type="button" aria-label="Close" onclick="this.parentElement.remove();">
+              <i class="bi bi-x-lg"></i>
+            </button>
+          </div>
+
+          <!-- Alert Danger -->
+          <div class="alert-custom alert-custom-danger">
+            <i class="bi bi-exclamation-triangle-fill alert-custom-icon"></i>
+            <div class="alert-custom-content">
+              <strong>Danger Warning:</strong> There was an issue processing your subscription payment bounds.
+            </div>
+            <button class="alert-custom-close" type="button" aria-label="Close" onclick="this.parentElement.remove();">
+              <i class="bi bi-x-lg"></i>
+            </button>
+          </div>
+
+          <!-- Alert Warning -->
+          <div class="alert-custom alert-custom-warning">
+            <i class="bi bi-exclamation-circle-fill alert-custom-icon"></i>
+            <div class="alert-custom-content">
+              <strong>Notice Warning:</strong> Please check your local database connection variables immediately.
+            </div>
+          </div>
+
+          <!-- Alert Info -->
+          <div class="alert-custom alert-custom-info">
+            <i class="bi bi-lightbulb-fill alert-custom-icon"></i>
+            <div class="alert-custom-content">
+              <strong>Tip Accent:</strong> You can minimize the left-side navigational sidebar options using the toggle.
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <!-- END: Main Components Grid Layout -->
+

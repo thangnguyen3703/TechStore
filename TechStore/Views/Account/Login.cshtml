@@ -1,0 +1,86 @@
+@model LoginViewModel
+@{
+    ViewData["Title"] = "Đăng nhập";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="py-5 my-5" id="login-form">
+    <div class="container-sm">
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+                <div class="breadcrumbs pt-5 my-5">
+                    <span class="item"><a asp-controller="Home" asp-action="Index">Home /</a></span>
+                    <span class="item">My Account</span>
+                </div>
+
+                <h2 class="section-title text-uppercase">Login</h2>
+
+                @if (TempData["Success"] is string successMessage)
+                {
+                    <div class="alert alert-success" role="alert">@successMessage</div>
+                }
+
+                <form asp-controller="Account" asp-action="Login" method="post" class="form-group flex-wrap">
+                    <input asp-for="ReturnUrl" type="hidden" />
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+                    <div class="col-12 pb-3">
+                        <label asp-for="Email" class="form-label"></label>
+                        <input asp-for="Email" class="form-control" autocomplete="email"
+                               placeholder="Write your email address here" autofocus />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-12 pb-3">
+                        <label asp-for="Password" class="form-label"></label>
+                        <input asp-for="Password" class="form-control" autocomplete="current-password"
+                               placeholder="Enter your password" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-check pb-3">
+                        <input asp-for="RememberMe" class="form-check-input" />
+                        <label asp-for="RememberMe" class="form-check-label"></label>
+                    </div>
+
+                    <button type="submit" class="btn btn-dark text-uppercase w-100">Log In</button>
+                    <p><a class="text-muted" href="#">Lost your password?</a></p>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="newsletter bg-black">
+    <div class="container-fluid">
+        <div class="newsletter jarallax">
+            <img src="~/shop/images/bg-newsletter.jpg" alt="newsletter" class="jarallax-img">
+            <div class="row py-5 justify-content-center">
+                <div class="col-md-6">
+                    <div class="row g-5 my-4 align-items-baseline">
+                        <div class="col-md-7">
+                            <h3 class="display-4 m-0 text-md-end">Join Our Newsletter</h3>
+                        </div>
+                        <div class="col-md-5">
+                            <p class="fs-6 text-gray">Sign Up for our newsletter and never miss any offers</p>
+                        </div>
+                    </div>
+                    <div class="row mb-5">
+                        <div class="col-md-12">
+                            <form class="d-flex flex-row gap-0" action="#">
+                                <input class="form-control rounded-0 rounded-start" name="email"
+                                       placeholder="Your Email Addresss" type="text" />
+                                <button class="btn btn-primary text-uppercase rounded-0 rounded-end px-5"
+                                        type="button">Sign Up</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

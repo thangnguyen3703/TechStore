@@ -1,0 +1,76 @@
+@model UserCreateViewModel
+@{
+    ViewData["Title"] = "Thêm User";
+}
+
+<div class="page-header">
+    <div>
+        <h1 class="page-title">Thêm User</h1>
+        <p class="page-subtitle">Tạo tài khoản mới và gán role bằng ASP.NET Core Identity.</p>
+    </div>
+    <a asp-action="Index" class="btn-custom btn-custom-light">
+        <i class="bi bi-arrow-left"></i> Quay lại
+    </a>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-xl-8 col-lg-10">
+        <div class="card">
+            <form asp-area="Admin" asp-controller="User" asp-action="Create" method="post">
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+                <div class="row g-4">
+                    <div class="col-12">
+                        <label asp-for="Email" class="form-label-custom"></label>
+                        <input asp-for="Email" class="form-control-custom" placeholder="name@company.com" autocomplete="email" />
+                        <span asp-validation-for="Email" class="form-feedback-custom invalid-custom"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="Password" class="form-label-custom"></label>
+                        <input asp-for="Password" class="form-control-custom" autocomplete="new-password" />
+                        <span asp-validation-for="Password" class="form-feedback-custom invalid-custom"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="ConfirmPassword" class="form-label-custom"></label>
+                        <input asp-for="ConfirmPassword" class="form-control-custom" autocomplete="new-password" />
+                        <span asp-validation-for="ConfirmPassword" class="form-feedback-custom invalid-custom"></span>
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label-custom">Role</label>
+                        <div class="row g-3">
+                            @if (Model.AvailableRoles.Count == 0)
+                            {
+                                <div class="col-12 text-muted">Chưa có role. Bạn có thể tạo role trước hoặc tạo user chưa có role.</div>
+                            }
+                            else
+                            {
+                                @foreach (var role in Model.AvailableRoles)
+                                {
+                                    <div class="col-md-6">
+                                        <label class="form-check-custom">
+                                            <input class="form-check-input-custom" type="checkbox" name="SelectedRoleNames"
+                                                   value="@role.Name" checked="@role.IsSelected" />
+                                            <span>@role.Name</span>
+                                        </label>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <div class="alert alert-info mt-4 mb-0">
+                    <i class="bi bi-info-circle-fill me-2"></i>
+                    User mới luôn được kích hoạt, xác nhận email và dùng email làm username.
+                </div>
+
+                <div class="d-flex justify-content-end gap-2 mt-4">
+                    <a asp-action="Index" class="btn-custom btn-custom-light">Hủy</a>
+                    <button type="submit" class="btn-custom btn-custom-primary">
+                        <i class="bi bi-person-plus-fill"></i> Tạo User
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
