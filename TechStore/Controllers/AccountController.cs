@@ -51,7 +51,7 @@ public class AccountController : Controller
         }
 
         return await _accountService.IsInRoleAsync(model.Email, "Admin")
-            ? RedirectToAction("Index", "Dashboard", new { area = "Admin" })
+            ? RedirectToAction("Index", "Dashboard", new { area = "Admin" })    
             : RedirectToAction("Index", "Home");
     }
 

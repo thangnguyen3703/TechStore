@@ -1,0 +1,196 @@
+﻿@model TechStore.Shared_ViewModels.Account.LoginViewModel
+
+@{
+    ViewData["Title"] = "Đăng nhập quản trị";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>@ViewData["Title"] - TechStore</title>
+
+    <link rel="stylesheet"
+          href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+    <style>
+        body {
+            min-height: 100vh;
+            margin: 0;
+            background: #f4f6f9;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .login-wrapper {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+
+        .login-card {
+            width: 100%;
+            max-width: 430px;
+            background: #fff;
+            border-radius: 14px;
+            padding: 36px;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, .08);
+        }
+
+        .login-logo {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+            .login-logo h2 {
+                margin-bottom: 6px;
+                font-weight: 700;
+                color: #212529;
+            }
+
+            .login-logo p {
+                margin: 0;
+                color: #6c757d;
+                font-size: 14px;
+            }
+
+        .form-label {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .form-control {
+            height: 46px;
+            border-radius: 8px;
+        }
+
+        .btn-login {
+            height: 46px;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+
+        .validation-summary-errors ul {
+            margin-bottom: 0;
+            padding-left: 20px;
+        }
+
+        .back-shop {
+            display: block;
+            margin-top: 20px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 14px;
+            color: #6c757d;
+        }
+
+            .back-shop:hover {
+                color: #212529;
+            }
+    </style>
+</head>
+
+<body>
+
+    <div class="login-wrapper">
+
+        <div class="login-card">
+
+            <div class="login-logo">
+                <h2>TechStore Admin</h2>
+                <p>Đăng nhập vào hệ thống quản trị</p>
+            </div>
+
+            <form asp-area="Admin"
+                  asp-controller="Auth"
+                  asp-action="Login"
+                  method="post">
+
+                @Html.AntiForgeryToken()
+
+                <div asp-validation-summary="ModelOnly"
+                     class="alert alert-danger"
+                     role="alert">
+                </div>
+
+                <div class="mb-3">
+
+                    <label asp-for="Email"
+                           class="form-label">
+                        Email
+                    </label>
+
+                    <input asp-for="Email"
+                           class="form-control"
+                           placeholder="Nhập email"
+                           autocomplete="username" />
+
+                    <span asp-validation-for="Email"
+                          class="text-danger small">
+                    </span>
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label asp-for="Password"
+                           class="form-label">
+                        Mật khẩu
+                    </label>
+
+                    <input asp-for="Password"
+                           class="form-control"
+                           placeholder="Nhập mật khẩu"
+                           autocomplete="current-password" />
+
+                    <span asp-validation-for="Password"
+                          class="text-danger small">
+                    </span>
+
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center mb-4">
+
+                    <div class="form-check">
+
+                        <input asp-for="RememberMe"
+                               class="form-check-input" />
+
+                        <label asp-for="RememberMe"
+                               class="form-check-label">
+                            Ghi nhớ đăng nhập
+                        </label>
+
+                    </div>
+
+                </div>
+
+                <button type="submit"
+                        class="btn btn-dark btn-login w-100">
+                    Đăng nhập
+                </button>
+
+            </form>
+
+            <a asp-area=""
+               asp-controller="Home"
+               asp-action="Index"
+               class="back-shop">
+                ← Quay lại cửa hàng
+            </a>
+
+        </div>
+
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <partial name="_ValidationScriptsPartial" />
+
+</body>
+</html>
