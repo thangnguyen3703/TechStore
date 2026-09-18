@@ -4,10 +4,9 @@ namespace TechStore.Service.Interfaces;
 
 public interface IAccountService
 {
-    Task<(bool Success, string? Error)> LoginAsync(
-        string email,
-        string password,
-        bool rememberMe);
+    Task<(bool Success, string? Error)> LoginAsync(string email,string password,bool rememberMe);
+
+    Task<(bool Success, string? Error)> AdminLoginAsync(string email, string password, bool rememberMe);
 
     Task LogoutAsync();
 

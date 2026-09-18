@@ -1,8 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
-using TechStore.Data.Contexts;
-using Microsoft.AspNetCore.Authentication;
+﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using TechStore.Data.Contexts;
 using TechStore.Data.Identity;
 using TechStore.Service.Interfaces;
 using TechStore.Service.Services;
@@ -60,35 +60,49 @@ builder.Services.ConfigureApplicationCookie(options =>
 {
     options.LoginPath = "/Account/Login";
     options.AccessDeniedPath = "/Account/AccessDenied";
-    options.Events.OnValidatePrincipal = async context =>
+
+    options.Events.OnRedirectToLogin = context =>
     {
-        var validatorOptions = context.HttpContext.RequestServices
-            .GetRequiredService<IOptions<SecurityStampValidatorOptions>>()
-            .Value;
-        var issuedUtc = context.Properties.IssuedUtc;
-        var shouldValidateUser = issuedUtc is null
-            || validatorOptions.ValidationInterval <= TimeSpan.Zero
-            || DateTimeOffset.UtcNow - issuedUtc.Value > validatorOptions.ValidationInterval;
-
-        await SecurityStampValidator.ValidatePrincipalAsync(context);
-
-        if (!shouldValidateUser || context.Principal?.Identity?.IsAuthenticated != true)
+        if (context.Request.Path.StartsWithSegments("/Admin"))
         {
-            return;
+            var returnUrl = Uri.EscapeDataString(
+                context.Request.Path + context.Request.QueryString);
+
+            context.Response.Redirect(
+                $"/Admin/Auth/Login?returnUrl={returnUrl}");
+        }
+        else
+        {
+            context.Response.Redirect(context.RedirectUri);
         }
 
-        var userManager = context.HttpContext.RequestServices
-            .GetRequiredService<UserManager<ApplicationUser>>();
-        var user = await userManager.GetUserAsync(context.Principal);
-        if (user is not null && user.IsActive)
+        return Task.CompletedTask;
+    };
+
+    options.Events.OnRedirectToAccessDenied = context =>
+    {
+        if (context.Request.Path.StartsWithSegments("/Admin"))
         {
-            return;
+            context.Response.Redirect("/Admin/Auth/AccessDenied");
+        }
+        else
+        {
+            context.Response.Redirect(context.RedirectUri);
         }
 
-        context.RejectPrincipal();
-        await context.HttpContext.SignOutAsync(IdentityConstants.ApplicationScheme);
+        return Task.CompletedTask;
     };
 });
+
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("AdminArea", policy =>
+    {
+        policy.RequireRole("ADMIN", "MANAGER", "STAFF");
+    });
+});
+
 
 var app = builder.Build();
 

@@ -14,7 +14,7 @@ public class AccountController : Controller
         _accountService = accountService;
     }
 
-    [AllowAnonymous]
+    [AllowAnonymous]  
     [HttpGet]
     public IActionResult Login(string? returnUrl = null)
     {
@@ -24,7 +24,6 @@ public class AccountController : Controller
                 ? RedirectToAction("Index", "Dashboard", new { area = "Admin" })
                 : RedirectToAction("Index", "Home");
         }
-
         return View(new LoginViewModel { ReturnUrl = returnUrl });
     }
 

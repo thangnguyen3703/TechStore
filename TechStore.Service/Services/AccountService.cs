@@ -1,5 +1,5 @@
-using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 using TechStore.Data.Identity;
 using TechStore.Service.Interfaces;
 using TechStore.Shared_ViewModels.Account;
@@ -25,7 +25,73 @@ public class AccountService : IAccountService
         _signInManager = signInManager;
         _roleManager = roleManager;
     }
+    private static readonly string[] AdminRoles ={"ADMIN","MANAGER","STAFF"};
+    public async Task<(bool Success, string? Error)> AdminLoginAsync(string email,string password,bool rememberMe)
+    {
+        var normalizedEmail = email?.Trim();
 
+        if (string.IsNullOrWhiteSpace(normalizedEmail)
+            || string.IsNullOrEmpty(password)
+            || !new EmailAddressAttribute().IsValid(normalizedEmail))
+        {
+            return (false, InvalidCredentialsMessage);
+        }
+
+        var user = await _userManager.FindByEmailAsync(normalizedEmail);
+
+        if (user is null)
+        {
+            return (false, InvalidCredentialsMessage);
+        }
+
+        if (!user.IsActive)
+        {
+            return (
+                false,
+                "Tài khoản đã bị khóa. Vui lòng liên hệ quản trị viên.");
+        }
+
+        var roles = await _userManager.GetRolesAsync(user);
+
+        var canAccessAdmin = roles.Any(role =>
+            AdminRoles.Contains(
+                role,
+                StringComparer.OrdinalIgnoreCase));
+
+        if (!canAccessAdmin)
+        {
+            return (
+                false,
+                "Tài khoản không có quyền truy cập trang quản trị.");
+        }
+
+        if (await _userManager.IsLockedOutAsync(user))
+        {
+            return (
+                false,
+                "Tài khoản tạm thời bị khóa. Vui lòng thử lại sau.");
+        }
+
+        var result = await _signInManager.PasswordSignInAsync(
+            user,
+            password,
+            rememberMe,
+            lockoutOnFailure: true);
+
+        if (result.Succeeded)
+        {
+            return (true, null);
+        }
+
+        if (result.IsLockedOut)
+        {
+            return (
+                false,
+                "Tài khoản tạm thời bị khóa do đăng nhập sai nhiều lần.");
+        }
+
+        return (false, InvalidCredentialsMessage);
+    }
     public async Task<(bool Success, string? Error)> LoginAsync(
         string email,
         string password,
