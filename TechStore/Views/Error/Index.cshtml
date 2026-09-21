@@ -1,0 +1,46 @@
+@{
+    ViewData["Title"] = "Error";
+    Layout = null;
+    var statusCode = ViewBag.StatusCode as int? ?? 404;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Electrostore - Error @statusCode</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="author" content="TemplatesJungle" />
+    <meta name="keywords" content="ecommerce,fashion,store" />
+    <meta name="description" content="Bootstrap 5 Furniture Shop HTML CSS Template" />
+    <link rel="stylesheet" href="~/shop/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="~/shop/css/vendor.css" />
+    <link rel="stylesheet" href="~/shop/css/swiper-bundle.min.css" />
+    <link rel="stylesheet" type="text/css" href="~/shop/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="~/shop/css/fonts.css" />
+</head>
+<body data-bs-theme="dark">
+    <div class="error-page content-light jarallax d-flex align-items-center" style="height: 100vh;">
+        <img src="~/shop/images/error-image.jpg" alt="error-page" class="jarallax-img" />
+        <div class="container position-relative">
+            <div class="page-content text-center text-white">
+                <h1>Error @statusCode</h1>
+                <p>Sorry, the page that you’re looking for doesn’t exist.</p>
+                <a asp-controller="Home" asp-action="Index"
+                   class="btn btn-outline-light btn-large text-uppercase mt-3">Go back to home</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/shop/js/jquery.min.js"></script>
+    <script src="~/shop/js/plugins.js"></script>
+    <script src="~/shop/js/SmoothScroll.js"></script>
+    <script src="~/shop/js/bootstrap.bundle.min.js"></script>
+    <script src="~/shop/js/swiper-bundle.min.js"></script>
+    <script src="~/shop/js/script.js"></script>
+</body>
+</html>

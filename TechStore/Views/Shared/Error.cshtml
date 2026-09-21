@@ -1,0 +1,24 @@
+@model ErrorViewModel
+@{
+    ViewData["Title"] = "Error";
+    Layout = "_ShopLayout";
+}
+
+<section class="error-page content-light jarallax d-flex align-items-center" style="height: 100vh;">
+    <img src="~/shop/images/error-image.jpg" alt="error-page" class="jarallax-img">
+    <div class="container position-relative">
+        <div class="page-content text-center text-white">
+            <h1>Error 404</h1>
+            <p>Sorry, the page that you’re looking for doesn’t exist.</p>
+            <a asp-controller="Home" asp-action="Index"
+               class="btn btn-outline-light btn-large text-uppercase mt-3">Go back to home</a>
+
+            @if (Model?.ShowRequestId == true)
+            {
+                <p class="text-white-50 mt-4 mb-0">
+                    <strong>Request ID:</strong> <code>@Model.RequestId</code>
+                </p>
+            }
+        </div>
+    </div>
+</section>

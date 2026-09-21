@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="93f5bda5461d47dbb4b9199138fb174d" Name="Diagram1" ZoomLevel="51">
+        <EntityTypeShape EntityType="TechStoreDBModel.AttributeValues" Width="1.5" PointX="8.25" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TechStoreDBModel.Branches" Width="1.5" PointX="3.75" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="TechStoreDBModel.BranchPriceLists" Width="1.5" PointX="8.5" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TechStoreDBModel.Brands" Width="1.5" PointX="0.75" PointY="19.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TechStoreDBModel.Categories" Width="1.5" PointX="0.75" PointY="15.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TechStoreDBModel.CategoryAttributes" Width="1.5" PointX="11.25" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="TechStoreDBModel.InventoryStocks" Width="1.5" PointX="7.5" PointY="24.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TechStoreDBModel.InventoryTransactions" Width="1.5" PointX="10.5" PointY="23.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TechStoreDBModel.PriceListItems" Width="1.5" PointX="7.5" PointY="28.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TechStoreDBModel.PriceLists" Width="1.5" PointX="5.25" PointY="29.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TechStoreDBModel.ProductAttributes" Width="1.5" PointX="6" PointY="13.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TechStoreDBModel.ProductImages" Width="1.5" PointX="5.25" PointY="17.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TechStoreDBModel.Products" Width="1.5" PointX="3" PointY="18.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TechStoreDBModel.ProductSpecifications" Width="1.5" PointX="8.25" PointY="19.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TechStoreDBModel.ProductVariants" Width="1.5" PointX="5.25" PointY="23.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TechStoreDBModel.Roles" Width="1.5" PointX="3.75" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TechStoreDBModel.StockDisposalDetails" Width="1.5" PointX="10.5" PointY="20.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TechStoreDBModel.StockDisposals" Width="1.5" PointX="8.25" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TechStoreDBModel.StockInDetails" Width="1.5" PointX="10.5" PointY="29.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TechStoreDBModel.StockIns" Width="1.5" PointX="8.25" PointY="33.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TechStoreDBModel.StockOutDetails" Width="1.5" PointX="13.5" PointY="24.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TechStoreDBModel.StockOuts" Width="1.5" PointX="11.25" PointY="33.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TechStoreDBModel.StockReturnDetails" Width="1.5" PointX="15.75" PointY="26.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TechStoreDBModel.StockReturns" Width="1.5" PointX="13.5" PointY="31.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TechStoreDBModel.StockTransferDetails" Width="1.5" PointX="13.5" PointY="20.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TechStoreDBModel.StockTransfers" Width="1.5" PointX="11.25" PointY="14.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TechStoreDBModel.Suppliers" Width="1.5" PointX="6" PointY="34" IsExpanded="true" />
+        <EntityTypeShape EntityType="TechStoreDBModel.Users" Width="1.5" PointX="6" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TechStoreDBModel.VariantAttributes" Width="1.5" PointX="13.5" PointY="27.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TechStoreDBModel.VariantCosts" Width="1.5" PointX="7.5" PointY="52.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TechStoreDBModel.Warehouses" Width="1.5" PointX="6" PointY="7.375" IsExpanded="true" />
+        <AssociationConnector Association="TechStoreDBModel.FK_AttributeValues_Attributes" ManuallyRouted="false" />
+        <AssociationConnector Association="TechStoreDBModel.FK_BranchPriceLists_Branches" ManuallyRouted="false" />
+        <AssociationConnector Association="TechStoreDBModel.FK_Users_Branches" ManuallyRouted="false" />
+        <AssociationConnector Association="TechStoreDBModel.FK_Warehouses_Branches" ManuallyRouted="false" />
+        <AssociationConnector Association="TechStoreDBModel.FK_BranchPriceLists_PriceLists" ManuallyRouted="false" />
+        <AssociationConnector Association="TechStoreDBModel.FK_Products_Brands" ManuallyRouted="false" />
+        <AssociationConnector Association="TechStoreDBModel.FK_Categories_ParentCategory" ManuallyRouted="false" />
+        <AssociationConnector Association="TechStoreDBModel.FK_CategoryAttributes_Categories" ManuallyRouted="false" />
+        <AssociationConnector Association="TechStoreDBModel.FK_Products_Categories" ManuallyRouted="false" />
+        <AssociationConnector Association="TechStoreDBModel.FK_CategoryAttributes_Attributes" ManuallyRouted="false" />
+        <AssociationConnector Association="TechStoreDBModel.FK_InventoryStocks_ProductVariants" ManuallyRouted="false" />
+        <AssociationConnector Association="TechStoreDBModel.FK_InventoryStocks_Warehouses" ManuallyRouted="false" />
+        <AssociationConnector Association="TechStoreDBModel.FK_InventoryTransactions_ProductVariants" ManuallyRouted="false" />
+        <AssociationConnector Association="TechStoreDBModel.FK_InventoryTransactions_Warehouses" ManuallyRouted="false" />
+        <AssociationConnector Association="TechStoreDBModel.FK_PriceListItems_PriceLists" ManuallyRouted="false" />
+        <AssociationConnector Association="TechStoreDBModel.FK_PriceListItems_ProductVariants" ManuallyRouted="false" />
+        <AssociationConnector Association="TechStoreDBModel.FK_ProductSpecifications_Attributes" ManuallyRouted="false" />
+        <AssociationConnector Association="TechStoreDBModel.FK_VariantAttributes_Attributes" ManuallyRouted="false" />
+        <AssociationConnector Association="TechStoreDBModel.FK_ProductImages_Products" ManuallyRouted="false" />
+        <AssociationConnector Association="TechStoreDBModel.FK_ProductSpecifications_Products" ManuallyRouted="false" />
+        <AssociationConnector Association="TechStoreDBModel.FK_ProductVariants_Products" ManuallyRouted="false" />
+        <AssociationConnector Association="TechStoreDBModel.FK_StockDisposalDetails_ProductVariants" ManuallyRouted="false" />
+        <AssociationConnector Association="TechStoreDBModel.FK_StockInDetails_ProductVariants" ManuallyRouted="false" />
+        <AssociationConnector Association="TechStoreDBModel.FK_StockOutDetails_ProductVariants" ManuallyRouted="false" />
+        <AssociationConnector Association="TechStoreDBModel.FK_StockReturnDetails_ProductVariants" ManuallyRouted="false" />
+        <AssociationConnector Association="TechStoreDBModel.FK_StockTransferDetails_ProductVariants" ManuallyRouted="false" />
+        <AssociationConnector Association="TechStoreDBModel.FK_VariantAttributes_ProductVariants" ManuallyRouted="false" />
+        <AssociationConnector Association="TechStoreDBModel.FK_VariantCosts_ProductVariants" ManuallyRouted="false" />
+        <AssociationConnector Association="TechStoreDBModel.FK_StockDisposalDetails_StockDisposals" ManuallyRouted="false" />
+        <AssociationConnector Association="TechStoreDBModel.FK_StockDisposals_Warehouses" ManuallyRouted="false" />
+        <AssociationConnector Association="TechStoreDBModel.FK_StockInDetails_StockIns" ManuallyRouted="false" />
+        <AssociationConnector Association="TechStoreDBModel.FK_StockReturnDetails_SourceStockIn" ManuallyRouted="false" />
+        <AssociationConnector Association="TechStoreDBModel.FK_StockIns_Suppliers" ManuallyRouted="false" />
+        <AssociationConnector Association="TechStoreDBModel.FK_StockIns_Warehouses" ManuallyRouted="false" />
+        <AssociationConnector Association="TechStoreDBModel.FK_StockOutDetails_StockOuts" ManuallyRouted="false" />
+        <AssociationConnector Association="TechStoreDBModel.FK_StockOuts_Warehouses" ManuallyRouted="false" />
+        <AssociationConnector Association="TechStoreDBModel.FK_StockReturnDetails_StockReturns" ManuallyRouted="false" />
+        <AssociationConnector Association="TechStoreDBModel.FK_StockReturns_Suppliers" ManuallyRouted="false" />
+        <AssociationConnector Association="TechStoreDBModel.FK_StockReturns_Warehouses" ManuallyRouted="false" />
+        <AssociationConnector Association="TechStoreDBModel.FK_StockTransferDetails_StockTransfers" ManuallyRouted="false" />
+        <AssociationConnector Association="TechStoreDBModel.FK_StockTransfers_FromWarehouse" ManuallyRouted="false" />
+        <AssociationConnector Association="TechStoreDBModel.FK_StockTransfers_ToWarehouse" ManuallyRouted="false" />
+        <AssociationConnector Association="TechStoreDBModel.UserRoles" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

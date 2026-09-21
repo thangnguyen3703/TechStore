@@ -1,0 +1,156 @@
+@{
+    ViewData["Title"] = "Yêu thích";
+    Layout = "_ShopLayout";
+}
+
+<section class="hero-section bg-light py-4">
+<div class="hero-content">
+<div class="container">
+<div class="row">
+<div class="text-center">
+<div class="breadcrumbs">
+<span class="item">
+<a asp-controller="Home" asp-action="Index">Home /</a>
+</span>
+<span class="item">Wishlist</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="py-5 my-5" id="Wishlist">
+<div class="container">
+<div class="row my-3">
+<div class="col-5 text-uppercase">Product</div>
+<div class="col-2 text-uppercase">Unit Price</div>
+<div class="col-2 text-uppercase">Stock Status</div>
+</div>
+<div class="product-wrapper">
+<div class="product-item row align-items-center mb-3 border-bottom">
+<div class="col-4 col-md-1 d-flex align-items-center text-left">
+<a asp-controller="Wishlist" asp-action="Index">
+<img alt="wishlist" class="img-fluid" srcset="/shop/images/product-thumb-1.jpg"/>
+</a>
+</div>
+<div class="col-8 col-md-4">
+<h3 class="item-title">
+<a asp-controller="Wishlist" asp-action="Index">Handmade crop sweater</a>
+</h3>
+</div>
+<div class="col-3 col-md-2 product-price text-left">
+<span class="item-price">$54.99</span>
+</div>
+<div class="col-3 col-md-2 wishlist-stock text-left">
+<span class="item-stock">In Stock</span>
+</div>
+<div class="col-3 col-md-2 wishlist-add text-left">
+<form action="#" class="variants" method="post">
+<a class="btn btn-outline-dark text-uppercase" asp-controller="Wishlist" asp-action="Index" title="Add to Cart">Add To Cart</a>
+</form>
+</div>
+<div class="col-3 col-md-1 text-left">
+<div class="cart-remove">
+<a asp-controller="Wishlist" asp-action="Index">
+<svg width="32px">
+<use xlink:href="#trash"></use>
+</svg>
+</a>
+</div>
+</div>
+</div>
+<div class="product-item row align-items-center mb-3 border-bottom">
+<div class="col-4 col-md-1 d-flex align-items-center text-left">
+<a asp-controller="Wishlist" asp-action="Index">
+<img alt="wishlist" class="img-fluid" srcset="/shop/images/product-thumb-2.jpg"/>
+</a>
+</div>
+<div class="col-8 col-md-4">
+<h3 class="item-title">
+<a asp-controller="Wishlist" asp-action="Index">Phone Cover 5.6 inches</a>
+</h3>
+</div>
+<div class="col-3 col-md-2 product-price text-left">
+<span class="item-price">$94.99</span>
+</div>
+<div class="col-3 col-md-2 wishlist-stock text-left">
+<span class="item-stock">In Stock</span>
+</div>
+<div class="col-3 col-md-2 wishlist-add text-left">
+<form action="#" class="variants" method="post">
+<a class="btn btn-outline-dark text-uppercase" asp-controller="Wishlist" asp-action="Index" title="Add to Cart">Add To Cart</a>
+</form>
+</div>
+<div class="col-3 col-md-1 text-left">
+<div class="cart-remove">
+<a asp-controller="Wishlist" asp-action="Index">
+<svg width="32px">
+<use xlink:href="#trash"></use>
+</svg>
+</a>
+</div>
+</div>
+</div>
+<div class="product-item row align-items-center mb-3 border-bottom">
+<div class="col-4 col-md-1 d-flex align-items-center text-left">
+<a asp-controller="Wishlist" asp-action="Index">
+<img alt="wishlist" class="img-fluid" srcset="/shop/images/product-thumb-3.jpg"/>
+</a>
+</div>
+<div class="col-8 col-md-4">
+<h3 class="item-title">
+<a asp-controller="Wishlist" asp-action="Index">Smart Phone 128GB RAM</a>
+</h3>
+</div>
+<div class="col-3 col-md-2 product-price text-left">
+<span class="item-price">$54.99</span>
+</div>
+<div class="col-3 col-md-2 wishlist-stock text-left">
+<span class="item-stock">In Stock</span>
+</div>
+<div class="col-3 col-md-2 wishlist-add text-left">
+<form action="#" class="variants" method="post">
+<a class="btn btn-outline-dark text-uppercase" asp-controller="Wishlist" asp-action="Index" title="Add to Cart">Add To Cart</a>
+</form>
+</div>
+<div class="col-3 col-md-1 text-left">
+<div class="cart-remove">
+<a asp-controller="Wishlist" asp-action="Index">
+<svg width="32px">
+<use xlink:href="#trash"></use>
+</svg>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="newsletter bg-black">
+<div class="container-fluid">
+<div class="newsletter jarallax">
+<div class="row py-5 justify-content-center">
+<div class="col-md-6">
+<div class="row g-5 my-4 align-items-baseline">
+<div class="col-md-7">
+<h3 class="display-4 m-0 text-md-end">Join Our Newsletter</h3>
+</div>
+<div class="col-md-5">
+<p class="fs-6 text-gray">Sign Up for our newsletter and never miss any offers</p>
+</div>
+</div>
+<div class="row mb-5">
+<div class="col-md-12">
+<form class="d-flex flex-row gap-0" id="form" action="#">
+<input class="form-control rounded-0 rounded-start" name="email" placeholder="Your Email Addresss" type="text"/>
+<button class="btn btn-primary text-uppercase rounded-0 rounded-end px-5">Sign Up</button>
+</form>
+</div>
+</div>
+</div>
+</div>
+        <img src="~/shop/images/bg-newsletter.jpg" alt="newsletter" class="jarallax-img">
+      </div>
+</div>
+</section>
+

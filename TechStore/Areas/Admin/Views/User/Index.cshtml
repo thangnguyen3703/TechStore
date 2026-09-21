@@ -1,0 +1,20 @@
+@{
+    ViewData["Title"] = "Users";
+}
+
+<div class="page-header">
+    <div>
+        <h1 class="page-title">Users</h1>
+        <p class="page-subtitle">Giao diện quản lý người dùng đã sẵn sàng để nối với service mới.</p>
+    </div>
+    <a asp-area="Admin" asp-controller="User" asp-action="Create" class="btn-custom btn-custom-primary">
+        <i class="bi bi-person-plus"></i> New User
+    </a>
+</div>
+<div class="card border-0 shadow-sm">
+    <div class="card-body py-5 text-center">
+        <i class="bi bi-people display-5 text-muted"></i>
+        <h2 class="h5 mt-3">Chưa có nguồn dữ liệu người dùng</h2>
+        <p class="text-muted mb-0">Cần ViewModel và IUserService của project mới trước khi hiển thị danh sách.</p>
+    </div>
+</div>

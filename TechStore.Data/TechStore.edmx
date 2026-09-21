@@ -1,0 +1,2885 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="TechStoreDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AttributeValues">
+          <Key>
+            <PropertyRef Name="AttributeValueID" />
+          </Key>
+          <Property Name="AttributeValueID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AttributeID" Type="int" Nullable="false" />
+          <Property Name="Value" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="DisplayOrder" Type="int" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Branches">
+          <Key>
+            <PropertyRef Name="BranchID" />
+          </Key>
+          <Property Name="BranchID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="500" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="20" />
+          <Property Name="Email" Type="nvarchar" MaxLength="200" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="UpdatedAt" Type="datetime2" Precision="7" />
+        </EntityType>
+        <EntityType Name="BranchPriceLists">
+          <Key>
+            <PropertyRef Name="BranchPriceListID" />
+          </Key>
+          <Property Name="BranchPriceListID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BranchID" Type="int" Nullable="false" />
+          <Property Name="PriceListID" Type="int" Nullable="false" />
+          <Property Name="IsDefault" Type="bit" Nullable="false" />
+          <Property Name="EffectiveFrom" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="EffectiveTo" Type="datetime2" Precision="7" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime2" Precision="7" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Brands">
+          <Key>
+            <PropertyRef Name="BrandID" />
+          </Key>
+          <Property Name="BrandID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Slug" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="500" />
+          <Property Name="LogoUrl" Type="nvarchar" MaxLength="500" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="UpdatedAt" Type="datetime2" Precision="7" />
+        </EntityType>
+        <EntityType Name="Categories">
+          <Key>
+            <PropertyRef Name="CategoryID" />
+          </Key>
+          <Property Name="CategoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ParentCategoryID" Type="int" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Slug" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="500" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="UpdatedAt" Type="datetime2" Precision="7" />
+        </EntityType>
+        <EntityType Name="CategoryAttributes">
+          <Key>
+            <PropertyRef Name="CategoryID" />
+            <PropertyRef Name="AttributeID" />
+          </Key>
+          <Property Name="CategoryID" Type="int" Nullable="false" />
+          <Property Name="AttributeID" Type="int" Nullable="false" />
+          <Property Name="AttributeScope" Type="tinyint" Nullable="false" />
+          <Property Name="IsRequired" Type="bit" Nullable="false" />
+          <Property Name="DisplayOrder" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="InventoryStocks">
+          <Key>
+            <PropertyRef Name="InventoryStockID" />
+          </Key>
+          <Property Name="InventoryStockID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="WarehouseID" Type="int" Nullable="false" />
+          <Property Name="VariantID" Type="int" Nullable="false" />
+          <Property Name="QuantityOnHand" Type="int" Nullable="false" />
+          <Property Name="ReservedQuantity" Type="int" Nullable="false" />
+          <Property Name="AvailableQuantity" Type="int" StoreGeneratedPattern="Computed" />
+          <Property Name="UpdatedAt" Type="datetime2" Precision="7" />
+          <Property Name="RowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+        </EntityType>
+        <EntityType Name="InventoryTransactions">
+          <Key>
+            <PropertyRef Name="InventoryTransactionID" />
+          </Key>
+          <Property Name="InventoryTransactionID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="WarehouseID" Type="int" Nullable="false" />
+          <Property Name="VariantID" Type="int" Nullable="false" />
+          <Property Name="TransactionType" Type="tinyint" Nullable="false" />
+          <Property Name="QuantityChange" Type="int" Nullable="false" />
+          <Property Name="UnitCost" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="AverageUnitCostAfter" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="BalanceAfter" Type="int" Nullable="false" />
+          <Property Name="ReferenceType" Type="nvarchar" MaxLength="30" />
+          <Property Name="ReferenceID" Type="int" />
+          <Property Name="Note" Type="nvarchar" MaxLength="500" />
+          <Property Name="CreatedByUserID" Type="nvarchar" MaxLength="450" />
+          <Property Name="CreatedAt" Type="datetime2" Precision="7" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PriceListItems">
+          <Key>
+            <PropertyRef Name="PriceListItemID" />
+          </Key>
+          <Property Name="PriceListItemID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PriceListID" Type="int" Nullable="false" />
+          <Property Name="VariantID" Type="int" Nullable="false" />
+          <Property Name="SellingPrice" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="CompareAtPrice" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="EffectiveFrom" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="EffectiveTo" Type="datetime2" Precision="7" />
+          <Property Name="CreatedAt" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="UpdatedAt" Type="datetime2" Precision="7" />
+        </EntityType>
+        <EntityType Name="PriceLists">
+          <Key>
+            <PropertyRef Name="PriceListID" />
+          </Key>
+          <Property Name="PriceListID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="PriceType" Type="tinyint" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="500" />
+          <Property Name="IsDefault" Type="bit" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="UpdatedAt" Type="datetime2" Precision="7" />
+        </EntityType>
+        <EntityType Name="ProductAttributes">
+          <Key>
+            <PropertyRef Name="AttributeID" />
+          </Key>
+          <Property Name="AttributeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="DisplayName" Type="nvarchar" MaxLength="100" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProductImages">
+          <Key>
+            <PropertyRef Name="ImageID" />
+          </Key>
+          <Property Name="ImageID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductID" Type="int" Nullable="false" />
+          <Property Name="VariantID" Type="int" />
+          <Property Name="ImageUrl" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="AltText" Type="nvarchar" MaxLength="250" />
+          <Property Name="DisplayOrder" Type="int" Nullable="false" />
+          <Property Name="IsPrimary" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Products">
+          <Key>
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="ProductID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CategoryID" Type="int" Nullable="false" />
+          <Property Name="BrandID" Type="int" />
+          <Property Name="Name" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Slug" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="ShortDescription" Type="nvarchar" MaxLength="500" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Thumbnail" Type="nvarchar" MaxLength="500" />
+          <Property Name="IsFeatured" Type="bit" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="UpdatedAt" Type="datetime2" Precision="7" />
+        </EntityType>
+        <EntityType Name="ProductSpecifications">
+          <Key>
+            <PropertyRef Name="ProductSpecificationID" />
+          </Key>
+          <Property Name="ProductSpecificationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductID" Type="int" Nullable="false" />
+          <Property Name="AttributeID" Type="int" Nullable="false" />
+          <Property Name="Value" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="DisplayOrder" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProductVariants">
+          <Key>
+            <PropertyRef Name="VariantID" />
+          </Key>
+          <Property Name="VariantID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductID" Type="int" Nullable="false" />
+          <Property Name="SKU" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="UpdatedAt" Type="datetime2" Precision="7" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="RoleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="UpdatedAt" Type="datetime2" Precision="7" />
+        </EntityType>
+        <EntityType Name="StockDisposalDetails">
+          <Key>
+            <PropertyRef Name="StockDisposalDetailID" />
+          </Key>
+          <Property Name="StockDisposalDetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StockDisposalID" Type="int" Nullable="false" />
+          <Property Name="VariantID" Type="int" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="UnitCost" Type="decimal" Precision="18" Scale="4" />
+        </EntityType>
+        <EntityType Name="StockDisposals">
+          <Key>
+            <PropertyRef Name="StockDisposalID" />
+          </Key>
+          <Property Name="StockDisposalID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DisposalCode" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="WarehouseID" Type="int" Nullable="false" />
+          <Property Name="DisposalDate" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="Reason" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Note" Type="nvarchar" MaxLength="1000" />
+          <Property Name="Status" Type="tinyint" Nullable="false" />
+          <Property Name="CreatedByUserID" Type="nvarchar" MaxLength="450" />
+          <Property Name="ConfirmedByUserID" Type="nvarchar" MaxLength="450" />
+          <Property Name="CancelledByUserID" Type="nvarchar" MaxLength="450" />
+          <Property Name="CreatedAt" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="UpdatedAt" Type="datetime2" Precision="7" />
+          <Property Name="ConfirmedAt" Type="datetime2" Precision="7" />
+          <Property Name="CancelledAt" Type="datetime2" Precision="7" />
+        </EntityType>
+        <EntityType Name="StockInDetails">
+          <Key>
+            <PropertyRef Name="StockInDetailID" />
+          </Key>
+          <Property Name="StockInDetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StockInID" Type="int" Nullable="false" />
+          <Property Name="VariantID" Type="int" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="UnitCost" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="LineTotal" Type="decimal" Precision="19" Scale="2" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="StockIns">
+          <Key>
+            <PropertyRef Name="StockInID" />
+          </Key>
+          <Property Name="StockInID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StockInCode" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="SupplierID" Type="int" Nullable="false" />
+          <Property Name="WarehouseID" Type="int" Nullable="false" />
+          <Property Name="StockInDate" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="Status" Type="tinyint" Nullable="false" />
+          <Property Name="Note" Type="nvarchar" MaxLength="1000" />
+          <Property Name="CreatedByUserID" Type="int" />
+          <Property Name="ConfirmedByUserID" Type="int" />
+          <Property Name="CancelledByUserID" Type="int" />
+          <Property Name="CreatedAt" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="UpdatedAt" Type="datetime2" Precision="7" />
+          <Property Name="ConfirmedAt" Type="datetime2" Precision="7" />
+          <Property Name="CancelledAt" Type="datetime2" Precision="7" />
+        </EntityType>
+        <EntityType Name="StockOutDetails">
+          <Key>
+            <PropertyRef Name="StockOutDetailID" />
+          </Key>
+          <Property Name="StockOutDetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StockOutID" Type="int" Nullable="false" />
+          <Property Name="VariantID" Type="int" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="UnitCost" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="LineCost" Type="decimal" Precision="19" Scale="4" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="StockOuts">
+          <Key>
+            <PropertyRef Name="StockOutID" />
+          </Key>
+          <Property Name="StockOutID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StockOutCode" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="WarehouseID" Type="int" Nullable="false" />
+          <Property Name="OrderID" Type="int" />
+          <Property Name="StockOutDate" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="StockOutType" Type="tinyint" Nullable="false" />
+          <Property Name="Status" Type="tinyint" Nullable="false" />
+          <Property Name="Note" Type="nvarchar" MaxLength="1000" />
+          <Property Name="CreatedByUserID" Type="nvarchar" MaxLength="450" />
+          <Property Name="ConfirmedByUserID" Type="nvarchar" MaxLength="450" />
+          <Property Name="CancelledByUserID" Type="nvarchar" MaxLength="450" />
+          <Property Name="CreatedAt" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="UpdatedAt" Type="datetime2" Precision="7" />
+          <Property Name="ConfirmedAt" Type="datetime2" Precision="7" />
+          <Property Name="CancelledAt" Type="datetime2" Precision="7" />
+        </EntityType>
+        <EntityType Name="StockReturnDetails">
+          <Key>
+            <PropertyRef Name="StockReturnDetailID" />
+          </Key>
+          <Property Name="StockReturnDetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StockReturnID" Type="int" Nullable="false" />
+          <Property Name="VariantID" Type="int" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="UnitCost" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="SourceOrderDetailID" Type="int" />
+          <Property Name="SourceStockInDetailID" Type="int" />
+        </EntityType>
+        <EntityType Name="StockReturns">
+          <Key>
+            <PropertyRef Name="StockReturnID" />
+          </Key>
+          <Property Name="StockReturnID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ReturnCode" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="WarehouseID" Type="int" Nullable="false" />
+          <Property Name="SupplierID" Type="int" />
+          <Property Name="OrderID" Type="int" />
+          <Property Name="ReturnType" Type="tinyint" Nullable="false" />
+          <Property Name="ReturnDate" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="Reason" Type="nvarchar" MaxLength="500" />
+          <Property Name="Note" Type="nvarchar" MaxLength="1000" />
+          <Property Name="Status" Type="tinyint" Nullable="false" />
+          <Property Name="CreatedByUserID" Type="nvarchar" MaxLength="450" />
+          <Property Name="ConfirmedByUserID" Type="nvarchar" MaxLength="450" />
+          <Property Name="CancelledByUserID" Type="nvarchar" MaxLength="450" />
+          <Property Name="CreatedAt" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="UpdatedAt" Type="datetime2" Precision="7" />
+          <Property Name="ConfirmedAt" Type="datetime2" Precision="7" />
+          <Property Name="CancelledAt" Type="datetime2" Precision="7" />
+        </EntityType>
+        <EntityType Name="StockTransferDetails">
+          <Key>
+            <PropertyRef Name="StockTransferDetailID" />
+          </Key>
+          <Property Name="StockTransferDetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StockTransferID" Type="int" Nullable="false" />
+          <Property Name="VariantID" Type="int" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="UnitCost" Type="decimal" Precision="18" Scale="4" />
+        </EntityType>
+        <EntityType Name="StockTransfers">
+          <Key>
+            <PropertyRef Name="StockTransferID" />
+          </Key>
+          <Property Name="StockTransferID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TransferCode" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="FromWarehouseID" Type="int" Nullable="false" />
+          <Property Name="ToWarehouseID" Type="int" Nullable="false" />
+          <Property Name="TransferDate" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="Status" Type="tinyint" Nullable="false" />
+          <Property Name="Note" Type="nvarchar" MaxLength="1000" />
+          <Property Name="CreatedByUserID" Type="nvarchar" MaxLength="450" />
+          <Property Name="ConfirmedByUserID" Type="nvarchar" MaxLength="450" />
+          <Property Name="CancelledByUserID" Type="nvarchar" MaxLength="450" />
+          <Property Name="CreatedAt" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="UpdatedAt" Type="datetime2" Precision="7" />
+          <Property Name="ConfirmedAt" Type="datetime2" Precision="7" />
+          <Property Name="CancelledAt" Type="datetime2" Precision="7" />
+        </EntityType>
+        <EntityType Name="Suppliers">
+          <Key>
+            <PropertyRef Name="SupplierID" />
+          </Key>
+          <Property Name="SupplierID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="TaxCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="20" />
+          <Property Name="Email" Type="nvarchar" MaxLength="200" />
+          <Property Name="Address" Type="nvarchar" MaxLength="500" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="UpdatedAt" Type="datetime2" Precision="7" />
+        </EntityType>
+        <EntityType Name="UserRoles">
+          <Key>
+            <PropertyRef Name="UserID" />
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="RoleID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BranchID" Type="int" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="20" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="UpdatedAt" Type="datetime2" Precision="7" />
+        </EntityType>
+        <EntityType Name="VariantAttributes">
+          <Key>
+            <PropertyRef Name="VariantID" />
+            <PropertyRef Name="AttributeID" />
+          </Key>
+          <Property Name="VariantID" Type="int" Nullable="false" />
+          <Property Name="AttributeID" Type="int" Nullable="false" />
+          <Property Name="AttributeValueID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="VariantCosts">
+          <Key>
+            <PropertyRef Name="VariantID" />
+          </Key>
+          <Property Name="VariantID" Type="int" Nullable="false" />
+          <Property Name="AverageUnitCost" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="UpdatedAt" Type="datetime2" Precision="7" />
+          <Property Name="RowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Warehouses">
+          <Key>
+            <PropertyRef Name="WarehouseID" />
+          </Key>
+          <Property Name="WarehouseID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BranchID" Type="int" Nullable="false" />
+          <Property Name="Code" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="WarehouseType" Type="tinyint" Nullable="false" />
+          <Property Name="IsDefault" Type="bit" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="500" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="UpdatedAt" Type="datetime2" Precision="7" />
+        </EntityType>
+        <Association Name="FK_AttributeValues_Attributes">
+          <End Role="ProductAttributes" Type="Self.ProductAttributes" Multiplicity="1" />
+          <End Role="AttributeValues" Type="Self.AttributeValues" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductAttributes">
+              <PropertyRef Name="AttributeID" />
+            </Principal>
+            <Dependent Role="AttributeValues">
+              <PropertyRef Name="AttributeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BranchPriceLists_Branches">
+          <End Role="Branches" Type="Self.Branches" Multiplicity="1" />
+          <End Role="BranchPriceLists" Type="Self.BranchPriceLists" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Branches">
+              <PropertyRef Name="BranchID" />
+            </Principal>
+            <Dependent Role="BranchPriceLists">
+              <PropertyRef Name="BranchID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BranchPriceLists_PriceLists">
+          <End Role="PriceLists" Type="Self.PriceLists" Multiplicity="1" />
+          <End Role="BranchPriceLists" Type="Self.BranchPriceLists" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PriceLists">
+              <PropertyRef Name="PriceListID" />
+            </Principal>
+            <Dependent Role="BranchPriceLists">
+              <PropertyRef Name="PriceListID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Categories_ParentCategory">
+          <End Role="Categories" Type="Self.Categories" Multiplicity="0..1" />
+          <End Role="Categories1" Type="Self.Categories" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categories">
+              <PropertyRef Name="CategoryID" />
+            </Principal>
+            <Dependent Role="Categories1">
+              <PropertyRef Name="ParentCategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CategoryAttributes_Attributes">
+          <End Role="ProductAttributes" Type="Self.ProductAttributes" Multiplicity="1" />
+          <End Role="CategoryAttributes" Type="Self.CategoryAttributes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductAttributes">
+              <PropertyRef Name="AttributeID" />
+            </Principal>
+            <Dependent Role="CategoryAttributes">
+              <PropertyRef Name="AttributeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CategoryAttributes_Categories">
+          <End Role="Categories" Type="Self.Categories" Multiplicity="1" />
+          <End Role="CategoryAttributes" Type="Self.CategoryAttributes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categories">
+              <PropertyRef Name="CategoryID" />
+            </Principal>
+            <Dependent Role="CategoryAttributes">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InventoryStocks_ProductVariants">
+          <End Role="ProductVariants" Type="Self.ProductVariants" Multiplicity="1" />
+          <End Role="InventoryStocks" Type="Self.InventoryStocks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductVariants">
+              <PropertyRef Name="VariantID" />
+            </Principal>
+            <Dependent Role="InventoryStocks">
+              <PropertyRef Name="VariantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InventoryStocks_Warehouses">
+          <End Role="Warehouses" Type="Self.Warehouses" Multiplicity="1" />
+          <End Role="InventoryStocks" Type="Self.InventoryStocks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Warehouses">
+              <PropertyRef Name="WarehouseID" />
+            </Principal>
+            <Dependent Role="InventoryStocks">
+              <PropertyRef Name="WarehouseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InventoryTransactions_ProductVariants">
+          <End Role="ProductVariants" Type="Self.ProductVariants" Multiplicity="1" />
+          <End Role="InventoryTransactions" Type="Self.InventoryTransactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductVariants">
+              <PropertyRef Name="VariantID" />
+            </Principal>
+            <Dependent Role="InventoryTransactions">
+              <PropertyRef Name="VariantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InventoryTransactions_Warehouses">
+          <End Role="Warehouses" Type="Self.Warehouses" Multiplicity="1" />
+          <End Role="InventoryTransactions" Type="Self.InventoryTransactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Warehouses">
+              <PropertyRef Name="WarehouseID" />
+            </Principal>
+            <Dependent Role="InventoryTransactions">
+              <PropertyRef Name="WarehouseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PriceListItems_PriceLists">
+          <End Role="PriceLists" Type="Self.PriceLists" Multiplicity="1" />
+          <End Role="PriceListItems" Type="Self.PriceListItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PriceLists">
+              <PropertyRef Name="PriceListID" />
+            </Principal>
+            <Dependent Role="PriceListItems">
+              <PropertyRef Name="PriceListID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PriceListItems_ProductVariants">
+          <End Role="ProductVariants" Type="Self.ProductVariants" Multiplicity="1" />
+          <End Role="PriceListItems" Type="Self.PriceListItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductVariants">
+              <PropertyRef Name="VariantID" />
+            </Principal>
+            <Dependent Role="PriceListItems">
+              <PropertyRef Name="VariantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductImages_Products">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="ProductImages" Type="Self.ProductImages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="ProductImages">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_ProductImages_Variant_Product' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_ProductImages_Variant_Product" />-->
+        <Association Name="FK_Products_Brands">
+          <End Role="Brands" Type="Self.Brands" Multiplicity="0..1" />
+          <End Role="Products" Type="Self.Products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Brands">
+              <PropertyRef Name="BrandID" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="BrandID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Products_Categories">
+          <End Role="Categories" Type="Self.Categories" Multiplicity="1" />
+          <End Role="Products" Type="Self.Products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categories">
+              <PropertyRef Name="CategoryID" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductSpecifications_Attributes">
+          <End Role="ProductAttributes" Type="Self.ProductAttributes" Multiplicity="1" />
+          <End Role="ProductSpecifications" Type="Self.ProductSpecifications" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductAttributes">
+              <PropertyRef Name="AttributeID" />
+            </Principal>
+            <Dependent Role="ProductSpecifications">
+              <PropertyRef Name="AttributeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductSpecifications_Products">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="ProductSpecifications" Type="Self.ProductSpecifications" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="ProductSpecifications">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductVariants_Products">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="ProductVariants" Type="Self.ProductVariants" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="ProductVariants">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StockDisposalDetails_ProductVariants">
+          <End Role="ProductVariants" Type="Self.ProductVariants" Multiplicity="1" />
+          <End Role="StockDisposalDetails" Type="Self.StockDisposalDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductVariants">
+              <PropertyRef Name="VariantID" />
+            </Principal>
+            <Dependent Role="StockDisposalDetails">
+              <PropertyRef Name="VariantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StockDisposalDetails_StockDisposals">
+          <End Role="StockDisposals" Type="Self.StockDisposals" Multiplicity="1" />
+          <End Role="StockDisposalDetails" Type="Self.StockDisposalDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StockDisposals">
+              <PropertyRef Name="StockDisposalID" />
+            </Principal>
+            <Dependent Role="StockDisposalDetails">
+              <PropertyRef Name="StockDisposalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StockDisposals_Warehouses">
+          <End Role="Warehouses" Type="Self.Warehouses" Multiplicity="1" />
+          <End Role="StockDisposals" Type="Self.StockDisposals" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Warehouses">
+              <PropertyRef Name="WarehouseID" />
+            </Principal>
+            <Dependent Role="StockDisposals">
+              <PropertyRef Name="WarehouseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StockInDetails_ProductVariants">
+          <End Role="ProductVariants" Type="Self.ProductVariants" Multiplicity="1" />
+          <End Role="StockInDetails" Type="Self.StockInDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductVariants">
+              <PropertyRef Name="VariantID" />
+            </Principal>
+            <Dependent Role="StockInDetails">
+              <PropertyRef Name="VariantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StockInDetails_StockIns">
+          <End Role="StockIns" Type="Self.StockIns" Multiplicity="1" />
+          <End Role="StockInDetails" Type="Self.StockInDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StockIns">
+              <PropertyRef Name="StockInID" />
+            </Principal>
+            <Dependent Role="StockInDetails">
+              <PropertyRef Name="StockInID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StockIns_Suppliers">
+          <End Role="Suppliers" Type="Self.Suppliers" Multiplicity="1" />
+          <End Role="StockIns" Type="Self.StockIns" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Suppliers">
+              <PropertyRef Name="SupplierID" />
+            </Principal>
+            <Dependent Role="StockIns">
+              <PropertyRef Name="SupplierID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StockIns_Warehouses">
+          <End Role="Warehouses" Type="Self.Warehouses" Multiplicity="1" />
+          <End Role="StockIns" Type="Self.StockIns" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Warehouses">
+              <PropertyRef Name="WarehouseID" />
+            </Principal>
+            <Dependent Role="StockIns">
+              <PropertyRef Name="WarehouseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StockOutDetails_ProductVariants">
+          <End Role="ProductVariants" Type="Self.ProductVariants" Multiplicity="1" />
+          <End Role="StockOutDetails" Type="Self.StockOutDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductVariants">
+              <PropertyRef Name="VariantID" />
+            </Principal>
+            <Dependent Role="StockOutDetails">
+              <PropertyRef Name="VariantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StockOutDetails_StockOuts">
+          <End Role="StockOuts" Type="Self.StockOuts" Multiplicity="1" />
+          <End Role="StockOutDetails" Type="Self.StockOutDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StockOuts">
+              <PropertyRef Name="StockOutID" />
+            </Principal>
+            <Dependent Role="StockOutDetails">
+              <PropertyRef Name="StockOutID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StockOuts_Warehouses">
+          <End Role="Warehouses" Type="Self.Warehouses" Multiplicity="1" />
+          <End Role="StockOuts" Type="Self.StockOuts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Warehouses">
+              <PropertyRef Name="WarehouseID" />
+            </Principal>
+            <Dependent Role="StockOuts">
+              <PropertyRef Name="WarehouseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StockReturnDetails_ProductVariants">
+          <End Role="ProductVariants" Type="Self.ProductVariants" Multiplicity="1" />
+          <End Role="StockReturnDetails" Type="Self.StockReturnDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductVariants">
+              <PropertyRef Name="VariantID" />
+            </Principal>
+            <Dependent Role="StockReturnDetails">
+              <PropertyRef Name="VariantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StockReturnDetails_SourceStockIn">
+          <End Role="StockInDetails" Type="Self.StockInDetails" Multiplicity="0..1" />
+          <End Role="StockReturnDetails" Type="Self.StockReturnDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StockInDetails">
+              <PropertyRef Name="StockInDetailID" />
+            </Principal>
+            <Dependent Role="StockReturnDetails">
+              <PropertyRef Name="SourceStockInDetailID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StockReturnDetails_StockReturns">
+          <End Role="StockReturns" Type="Self.StockReturns" Multiplicity="1" />
+          <End Role="StockReturnDetails" Type="Self.StockReturnDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StockReturns">
+              <PropertyRef Name="StockReturnID" />
+            </Principal>
+            <Dependent Role="StockReturnDetails">
+              <PropertyRef Name="StockReturnID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StockReturns_Suppliers">
+          <End Role="Suppliers" Type="Self.Suppliers" Multiplicity="0..1" />
+          <End Role="StockReturns" Type="Self.StockReturns" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Suppliers">
+              <PropertyRef Name="SupplierID" />
+            </Principal>
+            <Dependent Role="StockReturns">
+              <PropertyRef Name="SupplierID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StockReturns_Warehouses">
+          <End Role="Warehouses" Type="Self.Warehouses" Multiplicity="1" />
+          <End Role="StockReturns" Type="Self.StockReturns" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Warehouses">
+              <PropertyRef Name="WarehouseID" />
+            </Principal>
+            <Dependent Role="StockReturns">
+              <PropertyRef Name="WarehouseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StockTransferDetails_ProductVariants">
+          <End Role="ProductVariants" Type="Self.ProductVariants" Multiplicity="1" />
+          <End Role="StockTransferDetails" Type="Self.StockTransferDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductVariants">
+              <PropertyRef Name="VariantID" />
+            </Principal>
+            <Dependent Role="StockTransferDetails">
+              <PropertyRef Name="VariantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StockTransferDetails_StockTransfers">
+          <End Role="StockTransfers" Type="Self.StockTransfers" Multiplicity="1" />
+          <End Role="StockTransferDetails" Type="Self.StockTransferDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StockTransfers">
+              <PropertyRef Name="StockTransferID" />
+            </Principal>
+            <Dependent Role="StockTransferDetails">
+              <PropertyRef Name="StockTransferID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StockTransfers_FromWarehouse">
+          <End Role="Warehouses" Type="Self.Warehouses" Multiplicity="1" />
+          <End Role="StockTransfers" Type="Self.StockTransfers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Warehouses">
+              <PropertyRef Name="WarehouseID" />
+            </Principal>
+            <Dependent Role="StockTransfers">
+              <PropertyRef Name="FromWarehouseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StockTransfers_ToWarehouse">
+          <End Role="Warehouses" Type="Self.Warehouses" Multiplicity="1" />
+          <End Role="StockTransfers" Type="Self.StockTransfers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Warehouses">
+              <PropertyRef Name="WarehouseID" />
+            </Principal>
+            <Dependent Role="StockTransfers">
+              <PropertyRef Name="ToWarehouseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRoles_Roles">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UserRoles" Type="Self.UserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="UserRoles">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRoles_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UserRoles" Type="Self.UserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="UserRoles">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Branches">
+          <End Role="Branches" Type="Self.Branches" Multiplicity="0..1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Branches">
+              <PropertyRef Name="BranchID" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="BranchID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VariantAttributes_Attributes">
+          <End Role="ProductAttributes" Type="Self.ProductAttributes" Multiplicity="1" />
+          <End Role="VariantAttributes" Type="Self.VariantAttributes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductAttributes">
+              <PropertyRef Name="AttributeID" />
+            </Principal>
+            <Dependent Role="VariantAttributes">
+              <PropertyRef Name="AttributeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_VariantAttributes_AttributeValues' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_VariantAttributes_AttributeValues" />-->
+        <Association Name="FK_VariantAttributes_ProductVariants">
+          <End Role="ProductVariants" Type="Self.ProductVariants" Multiplicity="1" />
+          <End Role="VariantAttributes" Type="Self.VariantAttributes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductVariants">
+              <PropertyRef Name="VariantID" />
+            </Principal>
+            <Dependent Role="VariantAttributes">
+              <PropertyRef Name="VariantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VariantCosts_ProductVariants">
+          <End Role="ProductVariants" Type="Self.ProductVariants" Multiplicity="1" />
+          <End Role="VariantCosts" Type="Self.VariantCosts" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="ProductVariants">
+              <PropertyRef Name="VariantID" />
+            </Principal>
+            <Dependent Role="VariantCosts">
+              <PropertyRef Name="VariantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Warehouses_Branches">
+          <End Role="Branches" Type="Self.Branches" Multiplicity="1" />
+          <End Role="Warehouses" Type="Self.Warehouses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Branches">
+              <PropertyRef Name="BranchID" />
+            </Principal>
+            <Dependent Role="Warehouses">
+              <PropertyRef Name="BranchID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TechStoreDBModelStoreContainer">
+          <EntitySet Name="AttributeValues" EntityType="Self.AttributeValues" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Branches" EntityType="Self.Branches" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BranchPriceLists" EntityType="Self.BranchPriceLists" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Brands" EntityType="Self.Brands" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CategoryAttributes" EntityType="Self.CategoryAttributes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InventoryStocks" EntityType="Self.InventoryStocks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InventoryTransactions" EntityType="Self.InventoryTransactions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PriceListItems" EntityType="Self.PriceListItems" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PriceLists" EntityType="Self.PriceLists" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductAttributes" EntityType="Self.ProductAttributes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductImages" EntityType="Self.ProductImages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductSpecifications" EntityType="Self.ProductSpecifications" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductVariants" EntityType="Self.ProductVariants" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StockDisposalDetails" EntityType="Self.StockDisposalDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StockDisposals" EntityType="Self.StockDisposals" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StockInDetails" EntityType="Self.StockInDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StockIns" EntityType="Self.StockIns" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StockOutDetails" EntityType="Self.StockOutDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StockOuts" EntityType="Self.StockOuts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StockReturnDetails" EntityType="Self.StockReturnDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StockReturns" EntityType="Self.StockReturns" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StockTransferDetails" EntityType="Self.StockTransferDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StockTransfers" EntityType="Self.StockTransfers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Suppliers" EntityType="Self.Suppliers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserRoles" EntityType="Self.UserRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VariantAttributes" EntityType="Self.VariantAttributes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VariantCosts" EntityType="Self.VariantCosts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Warehouses" EntityType="Self.Warehouses" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_AttributeValues_Attributes" Association="Self.FK_AttributeValues_Attributes">
+            <End Role="ProductAttributes" EntitySet="ProductAttributes" />
+            <End Role="AttributeValues" EntitySet="AttributeValues" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BranchPriceLists_Branches" Association="Self.FK_BranchPriceLists_Branches">
+            <End Role="Branches" EntitySet="Branches" />
+            <End Role="BranchPriceLists" EntitySet="BranchPriceLists" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BranchPriceLists_PriceLists" Association="Self.FK_BranchPriceLists_PriceLists">
+            <End Role="PriceLists" EntitySet="PriceLists" />
+            <End Role="BranchPriceLists" EntitySet="BranchPriceLists" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Categories_ParentCategory" Association="Self.FK_Categories_ParentCategory">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="Categories1" EntitySet="Categories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CategoryAttributes_Attributes" Association="Self.FK_CategoryAttributes_Attributes">
+            <End Role="ProductAttributes" EntitySet="ProductAttributes" />
+            <End Role="CategoryAttributes" EntitySet="CategoryAttributes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CategoryAttributes_Categories" Association="Self.FK_CategoryAttributes_Categories">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="CategoryAttributes" EntitySet="CategoryAttributes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InventoryStocks_ProductVariants" Association="Self.FK_InventoryStocks_ProductVariants">
+            <End Role="ProductVariants" EntitySet="ProductVariants" />
+            <End Role="InventoryStocks" EntitySet="InventoryStocks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InventoryStocks_Warehouses" Association="Self.FK_InventoryStocks_Warehouses">
+            <End Role="Warehouses" EntitySet="Warehouses" />
+            <End Role="InventoryStocks" EntitySet="InventoryStocks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InventoryTransactions_ProductVariants" Association="Self.FK_InventoryTransactions_ProductVariants">
+            <End Role="ProductVariants" EntitySet="ProductVariants" />
+            <End Role="InventoryTransactions" EntitySet="InventoryTransactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InventoryTransactions_Warehouses" Association="Self.FK_InventoryTransactions_Warehouses">
+            <End Role="Warehouses" EntitySet="Warehouses" />
+            <End Role="InventoryTransactions" EntitySet="InventoryTransactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PriceListItems_PriceLists" Association="Self.FK_PriceListItems_PriceLists">
+            <End Role="PriceLists" EntitySet="PriceLists" />
+            <End Role="PriceListItems" EntitySet="PriceListItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PriceListItems_ProductVariants" Association="Self.FK_PriceListItems_ProductVariants">
+            <End Role="ProductVariants" EntitySet="ProductVariants" />
+            <End Role="PriceListItems" EntitySet="PriceListItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductImages_Products" Association="Self.FK_ProductImages_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="ProductImages" EntitySet="ProductImages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Products_Brands" Association="Self.FK_Products_Brands">
+            <End Role="Brands" EntitySet="Brands" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Products_Categories" Association="Self.FK_Products_Categories">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductSpecifications_Attributes" Association="Self.FK_ProductSpecifications_Attributes">
+            <End Role="ProductAttributes" EntitySet="ProductAttributes" />
+            <End Role="ProductSpecifications" EntitySet="ProductSpecifications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductSpecifications_Products" Association="Self.FK_ProductSpecifications_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="ProductSpecifications" EntitySet="ProductSpecifications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductVariants_Products" Association="Self.FK_ProductVariants_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="ProductVariants" EntitySet="ProductVariants" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StockDisposalDetails_ProductVariants" Association="Self.FK_StockDisposalDetails_ProductVariants">
+            <End Role="ProductVariants" EntitySet="ProductVariants" />
+            <End Role="StockDisposalDetails" EntitySet="StockDisposalDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StockDisposalDetails_StockDisposals" Association="Self.FK_StockDisposalDetails_StockDisposals">
+            <End Role="StockDisposals" EntitySet="StockDisposals" />
+            <End Role="StockDisposalDetails" EntitySet="StockDisposalDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StockDisposals_Warehouses" Association="Self.FK_StockDisposals_Warehouses">
+            <End Role="Warehouses" EntitySet="Warehouses" />
+            <End Role="StockDisposals" EntitySet="StockDisposals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StockInDetails_ProductVariants" Association="Self.FK_StockInDetails_ProductVariants">
+            <End Role="ProductVariants" EntitySet="ProductVariants" />
+            <End Role="StockInDetails" EntitySet="StockInDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StockInDetails_StockIns" Association="Self.FK_StockInDetails_StockIns">
+            <End Role="StockIns" EntitySet="StockIns" />
+            <End Role="StockInDetails" EntitySet="StockInDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StockIns_Suppliers" Association="Self.FK_StockIns_Suppliers">
+            <End Role="Suppliers" EntitySet="Suppliers" />
+            <End Role="StockIns" EntitySet="StockIns" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StockIns_Warehouses" Association="Self.FK_StockIns_Warehouses">
+            <End Role="Warehouses" EntitySet="Warehouses" />
+            <End Role="StockIns" EntitySet="StockIns" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StockOutDetails_ProductVariants" Association="Self.FK_StockOutDetails_ProductVariants">
+            <End Role="ProductVariants" EntitySet="ProductVariants" />
+            <End Role="StockOutDetails" EntitySet="StockOutDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StockOutDetails_StockOuts" Association="Self.FK_StockOutDetails_StockOuts">
+            <End Role="StockOuts" EntitySet="StockOuts" />
+            <End Role="StockOutDetails" EntitySet="StockOutDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StockOuts_Warehouses" Association="Self.FK_StockOuts_Warehouses">
+            <End Role="Warehouses" EntitySet="Warehouses" />
+            <End Role="StockOuts" EntitySet="StockOuts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StockReturnDetails_ProductVariants" Association="Self.FK_StockReturnDetails_ProductVariants">
+            <End Role="ProductVariants" EntitySet="ProductVariants" />
+            <End Role="StockReturnDetails" EntitySet="StockReturnDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StockReturnDetails_SourceStockIn" Association="Self.FK_StockReturnDetails_SourceStockIn">
+            <End Role="StockInDetails" EntitySet="StockInDetails" />
+            <End Role="StockReturnDetails" EntitySet="StockReturnDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StockReturnDetails_StockReturns" Association="Self.FK_StockReturnDetails_StockReturns">
+            <End Role="StockReturns" EntitySet="StockReturns" />
+            <End Role="StockReturnDetails" EntitySet="StockReturnDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StockReturns_Suppliers" Association="Self.FK_StockReturns_Suppliers">
+            <End Role="Suppliers" EntitySet="Suppliers" />
+            <End Role="StockReturns" EntitySet="StockReturns" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StockReturns_Warehouses" Association="Self.FK_StockReturns_Warehouses">
+            <End Role="Warehouses" EntitySet="Warehouses" />
+            <End Role="StockReturns" EntitySet="StockReturns" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StockTransferDetails_ProductVariants" Association="Self.FK_StockTransferDetails_ProductVariants">
+            <End Role="ProductVariants" EntitySet="ProductVariants" />
+            <End Role="StockTransferDetails" EntitySet="StockTransferDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StockTransferDetails_StockTransfers" Association="Self.FK_StockTransferDetails_StockTransfers">
+            <End Role="StockTransfers" EntitySet="StockTransfers" />
+            <End Role="StockTransferDetails" EntitySet="StockTransferDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StockTransfers_FromWarehouse" Association="Self.FK_StockTransfers_FromWarehouse">
+            <End Role="Warehouses" EntitySet="Warehouses" />
+            <End Role="StockTransfers" EntitySet="StockTransfers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StockTransfers_ToWarehouse" Association="Self.FK_StockTransfers_ToWarehouse">
+            <End Role="Warehouses" EntitySet="Warehouses" />
+            <End Role="StockTransfers" EntitySet="StockTransfers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRoles_Roles" Association="Self.FK_UserRoles_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="UserRoles" EntitySet="UserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRoles_Users" Association="Self.FK_UserRoles_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserRoles" EntitySet="UserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Branches" Association="Self.FK_Users_Branches">
+            <End Role="Branches" EntitySet="Branches" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VariantAttributes_Attributes" Association="Self.FK_VariantAttributes_Attributes">
+            <End Role="ProductAttributes" EntitySet="ProductAttributes" />
+            <End Role="VariantAttributes" EntitySet="VariantAttributes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VariantAttributes_ProductVariants" Association="Self.FK_VariantAttributes_ProductVariants">
+            <End Role="ProductVariants" EntitySet="ProductVariants" />
+            <End Role="VariantAttributes" EntitySet="VariantAttributes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VariantCosts_ProductVariants" Association="Self.FK_VariantCosts_ProductVariants">
+            <End Role="ProductVariants" EntitySet="ProductVariants" />
+            <End Role="VariantCosts" EntitySet="VariantCosts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Warehouses_Branches" Association="Self.FK_Warehouses_Branches">
+            <End Role="Branches" EntitySet="Branches" />
+            <End Role="Warehouses" EntitySet="Warehouses" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TechStoreDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AttributeValues">
+          <Key>
+            <PropertyRef Name="AttributeValueID" />
+          </Key>
+          <Property Name="AttributeValueID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AttributeID" Type="Int32" Nullable="false" />
+          <Property Name="Value" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DisplayOrder" Type="Int32" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="ProductAttributes" Relationship="Self.FK_AttributeValues_Attributes" FromRole="AttributeValues" ToRole="ProductAttributes" />
+        </EntityType>
+        <EntityType Name="Branches">
+          <Key>
+            <PropertyRef Name="BranchID" />
+          </Key>
+          <Property Name="BranchID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="UpdatedAt" Type="DateTime" Precision="7" />
+          <NavigationProperty Name="BranchPriceLists" Relationship="Self.FK_BranchPriceLists_Branches" FromRole="Branches" ToRole="BranchPriceLists" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_Users_Branches" FromRole="Branches" ToRole="Users" />
+          <NavigationProperty Name="Warehouses" Relationship="Self.FK_Warehouses_Branches" FromRole="Branches" ToRole="Warehouses" />
+        </EntityType>
+        <EntityType Name="BranchPriceLists">
+          <Key>
+            <PropertyRef Name="BranchPriceListID" />
+          </Key>
+          <Property Name="BranchPriceListID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BranchID" Type="Int32" Nullable="false" />
+          <Property Name="PriceListID" Type="Int32" Nullable="false" />
+          <Property Name="IsDefault" Type="Boolean" Nullable="false" />
+          <Property Name="EffectiveFrom" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="EffectiveTo" Type="DateTime" Precision="7" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="7" />
+          <NavigationProperty Name="Branches" Relationship="Self.FK_BranchPriceLists_Branches" FromRole="BranchPriceLists" ToRole="Branches" />
+          <NavigationProperty Name="PriceLists" Relationship="Self.FK_BranchPriceLists_PriceLists" FromRole="BranchPriceLists" ToRole="PriceLists" />
+        </EntityType>
+        <EntityType Name="Brands">
+          <Key>
+            <PropertyRef Name="BrandID" />
+          </Key>
+          <Property Name="BrandID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Slug" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="LogoUrl" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="UpdatedAt" Type="DateTime" Precision="7" />
+          <NavigationProperty Name="Products" Relationship="Self.FK_Products_Brands" FromRole="Brands" ToRole="Products" />
+        </EntityType>
+        <EntityType Name="Categories">
+          <Key>
+            <PropertyRef Name="CategoryID" />
+          </Key>
+          <Property Name="CategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ParentCategoryID" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Slug" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="UpdatedAt" Type="DateTime" Precision="7" />
+          <NavigationProperty Name="Categories1" Relationship="Self.FK_Categories_ParentCategory" FromRole="Categories" ToRole="Categories1" />
+          <NavigationProperty Name="Categories2" Relationship="Self.FK_Categories_ParentCategory" FromRole="Categories1" ToRole="Categories" />
+          <NavigationProperty Name="CategoryAttributes" Relationship="Self.FK_CategoryAttributes_Categories" FromRole="Categories" ToRole="CategoryAttributes" />
+          <NavigationProperty Name="Products" Relationship="Self.FK_Products_Categories" FromRole="Categories" ToRole="Products" />
+        </EntityType>
+        <EntityType Name="CategoryAttributes">
+          <Key>
+            <PropertyRef Name="CategoryID" />
+            <PropertyRef Name="AttributeID" />
+          </Key>
+          <Property Name="CategoryID" Type="Int32" Nullable="false" />
+          <Property Name="AttributeID" Type="Int32" Nullable="false" />
+          <Property Name="AttributeScope" Type="Byte" Nullable="false" />
+          <Property Name="IsRequired" Type="Boolean" Nullable="false" />
+          <Property Name="DisplayOrder" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Categories" Relationship="Self.FK_CategoryAttributes_Categories" FromRole="CategoryAttributes" ToRole="Categories" />
+          <NavigationProperty Name="ProductAttributes" Relationship="Self.FK_CategoryAttributes_Attributes" FromRole="CategoryAttributes" ToRole="ProductAttributes" />
+        </EntityType>
+        <EntityType Name="InventoryStocks">
+          <Key>
+            <PropertyRef Name="InventoryStockID" />
+          </Key>
+          <Property Name="InventoryStockID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WarehouseID" Type="Int32" Nullable="false" />
+          <Property Name="VariantID" Type="Int32" Nullable="false" />
+          <Property Name="QuantityOnHand" Type="Int32" Nullable="false" />
+          <Property Name="ReservedQuantity" Type="Int32" Nullable="false" />
+          <Property Name="AvailableQuantity" Type="Int32" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="UpdatedAt" Type="DateTime" Precision="7" />
+          <Property Name="RowVersion" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
+          <NavigationProperty Name="ProductVariants" Relationship="Self.FK_InventoryStocks_ProductVariants" FromRole="InventoryStocks" ToRole="ProductVariants" />
+          <NavigationProperty Name="Warehouses" Relationship="Self.FK_InventoryStocks_Warehouses" FromRole="InventoryStocks" ToRole="Warehouses" />
+        </EntityType>
+        <EntityType Name="InventoryTransactions">
+          <Key>
+            <PropertyRef Name="InventoryTransactionID" />
+          </Key>
+          <Property Name="InventoryTransactionID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WarehouseID" Type="Int32" Nullable="false" />
+          <Property Name="VariantID" Type="Int32" Nullable="false" />
+          <Property Name="TransactionType" Type="Byte" Nullable="false" />
+          <Property Name="QuantityChange" Type="Int32" Nullable="false" />
+          <Property Name="UnitCost" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="AverageUnitCostAfter" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="BalanceAfter" Type="Int32" Nullable="false" />
+          <Property Name="ReferenceType" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="ReferenceID" Type="Int32" />
+          <Property Name="Note" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedByUserID" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="7" />
+          <NavigationProperty Name="ProductVariants" Relationship="Self.FK_InventoryTransactions_ProductVariants" FromRole="InventoryTransactions" ToRole="ProductVariants" />
+          <NavigationProperty Name="Warehouses" Relationship="Self.FK_InventoryTransactions_Warehouses" FromRole="InventoryTransactions" ToRole="Warehouses" />
+        </EntityType>
+        <EntityType Name="PriceListItems">
+          <Key>
+            <PropertyRef Name="PriceListItemID" />
+          </Key>
+          <Property Name="PriceListItemID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PriceListID" Type="Int32" Nullable="false" />
+          <Property Name="VariantID" Type="Int32" Nullable="false" />
+          <Property Name="SellingPrice" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="CompareAtPrice" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="EffectiveFrom" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="EffectiveTo" Type="DateTime" Precision="7" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="UpdatedAt" Type="DateTime" Precision="7" />
+          <NavigationProperty Name="PriceLists" Relationship="Self.FK_PriceListItems_PriceLists" FromRole="PriceListItems" ToRole="PriceLists" />
+          <NavigationProperty Name="ProductVariants" Relationship="Self.FK_PriceListItems_ProductVariants" FromRole="PriceListItems" ToRole="ProductVariants" />
+        </EntityType>
+        <EntityType Name="PriceLists">
+          <Key>
+            <PropertyRef Name="PriceListID" />
+          </Key>
+          <Property Name="PriceListID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PriceType" Type="Byte" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="IsDefault" Type="Boolean" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="UpdatedAt" Type="DateTime" Precision="7" />
+          <NavigationProperty Name="BranchPriceLists" Relationship="Self.FK_BranchPriceLists_PriceLists" FromRole="PriceLists" ToRole="BranchPriceLists" />
+          <NavigationProperty Name="PriceListItems" Relationship="Self.FK_PriceListItems_PriceLists" FromRole="PriceLists" ToRole="PriceListItems" />
+        </EntityType>
+        <EntityType Name="ProductAttributes">
+          <Key>
+            <PropertyRef Name="AttributeID" />
+          </Key>
+          <Property Name="AttributeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DisplayName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="AttributeValues" Relationship="Self.FK_AttributeValues_Attributes" FromRole="ProductAttributes" ToRole="AttributeValues" />
+          <NavigationProperty Name="CategoryAttributes" Relationship="Self.FK_CategoryAttributes_Attributes" FromRole="ProductAttributes" ToRole="CategoryAttributes" />
+          <NavigationProperty Name="ProductSpecifications" Relationship="Self.FK_ProductSpecifications_Attributes" FromRole="ProductAttributes" ToRole="ProductSpecifications" />
+          <NavigationProperty Name="VariantAttributes" Relationship="Self.FK_VariantAttributes_Attributes" FromRole="ProductAttributes" ToRole="VariantAttributes" />
+        </EntityType>
+        <EntityType Name="ProductImages">
+          <Key>
+            <PropertyRef Name="ImageID" />
+          </Key>
+          <Property Name="ImageID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <Property Name="VariantID" Type="Int32" />
+          <Property Name="ImageUrl" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AltText" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="DisplayOrder" Type="Int32" Nullable="false" />
+          <Property Name="IsPrimary" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Products" Relationship="Self.FK_ProductImages_Products" FromRole="ProductImages" ToRole="Products" />
+        </EntityType>
+        <EntityType Name="Products">
+          <Key>
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="ProductID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryID" Type="Int32" Nullable="false" />
+          <Property Name="BrandID" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Slug" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ShortDescription" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Thumbnail" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="IsFeatured" Type="Boolean" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="UpdatedAt" Type="DateTime" Precision="7" />
+          <NavigationProperty Name="Brands" Relationship="Self.FK_Products_Brands" FromRole="Products" ToRole="Brands" />
+          <NavigationProperty Name="Categories" Relationship="Self.FK_Products_Categories" FromRole="Products" ToRole="Categories" />
+          <NavigationProperty Name="ProductImages" Relationship="Self.FK_ProductImages_Products" FromRole="Products" ToRole="ProductImages" />
+          <NavigationProperty Name="ProductSpecifications" Relationship="Self.FK_ProductSpecifications_Products" FromRole="Products" ToRole="ProductSpecifications" />
+          <NavigationProperty Name="ProductVariants" Relationship="Self.FK_ProductVariants_Products" FromRole="Products" ToRole="ProductVariants" />
+        </EntityType>
+        <EntityType Name="ProductSpecifications">
+          <Key>
+            <PropertyRef Name="ProductSpecificationID" />
+          </Key>
+          <Property Name="ProductSpecificationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <Property Name="AttributeID" Type="Int32" Nullable="false" />
+          <Property Name="Value" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DisplayOrder" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ProductAttributes" Relationship="Self.FK_ProductSpecifications_Attributes" FromRole="ProductSpecifications" ToRole="ProductAttributes" />
+          <NavigationProperty Name="Products" Relationship="Self.FK_ProductSpecifications_Products" FromRole="ProductSpecifications" ToRole="Products" />
+        </EntityType>
+        <EntityType Name="ProductVariants">
+          <Key>
+            <PropertyRef Name="VariantID" />
+          </Key>
+          <Property Name="VariantID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <Property Name="SKU" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="UpdatedAt" Type="DateTime" Precision="7" />
+          <NavigationProperty Name="InventoryStocks" Relationship="Self.FK_InventoryStocks_ProductVariants" FromRole="ProductVariants" ToRole="InventoryStocks" />
+          <NavigationProperty Name="InventoryTransactions" Relationship="Self.FK_InventoryTransactions_ProductVariants" FromRole="ProductVariants" ToRole="InventoryTransactions" />
+          <NavigationProperty Name="PriceListItems" Relationship="Self.FK_PriceListItems_ProductVariants" FromRole="ProductVariants" ToRole="PriceListItems" />
+          <NavigationProperty Name="Products" Relationship="Self.FK_ProductVariants_Products" FromRole="ProductVariants" ToRole="Products" />
+          <NavigationProperty Name="StockDisposalDetails" Relationship="Self.FK_StockDisposalDetails_ProductVariants" FromRole="ProductVariants" ToRole="StockDisposalDetails" />
+          <NavigationProperty Name="StockInDetails" Relationship="Self.FK_StockInDetails_ProductVariants" FromRole="ProductVariants" ToRole="StockInDetails" />
+          <NavigationProperty Name="StockOutDetails" Relationship="Self.FK_StockOutDetails_ProductVariants" FromRole="ProductVariants" ToRole="StockOutDetails" />
+          <NavigationProperty Name="StockReturnDetails" Relationship="Self.FK_StockReturnDetails_ProductVariants" FromRole="ProductVariants" ToRole="StockReturnDetails" />
+          <NavigationProperty Name="StockTransferDetails" Relationship="Self.FK_StockTransferDetails_ProductVariants" FromRole="ProductVariants" ToRole="StockTransferDetails" />
+          <NavigationProperty Name="VariantAttributes" Relationship="Self.FK_VariantAttributes_ProductVariants" FromRole="ProductVariants" ToRole="VariantAttributes" />
+          <NavigationProperty Name="VariantCosts" Relationship="Self.FK_VariantCosts_ProductVariants" FromRole="ProductVariants" ToRole="VariantCosts" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="RoleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="UpdatedAt" Type="DateTime" Precision="7" />
+          <NavigationProperty Name="Users" Relationship="Self.UserRoles" FromRole="Roles" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="StockDisposalDetails">
+          <Key>
+            <PropertyRef Name="StockDisposalDetailID" />
+          </Key>
+          <Property Name="StockDisposalDetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StockDisposalID" Type="Int32" Nullable="false" />
+          <Property Name="VariantID" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="UnitCost" Type="Decimal" Precision="18" Scale="4" />
+          <NavigationProperty Name="ProductVariants" Relationship="Self.FK_StockDisposalDetails_ProductVariants" FromRole="StockDisposalDetails" ToRole="ProductVariants" />
+          <NavigationProperty Name="StockDisposals" Relationship="Self.FK_StockDisposalDetails_StockDisposals" FromRole="StockDisposalDetails" ToRole="StockDisposals" />
+        </EntityType>
+        <EntityType Name="StockDisposals">
+          <Key>
+            <PropertyRef Name="StockDisposalID" />
+          </Key>
+          <Property Name="StockDisposalID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DisposalCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="WarehouseID" Type="Int32" Nullable="false" />
+          <Property Name="DisposalDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="Reason" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Note" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Byte" Nullable="false" />
+          <Property Name="CreatedByUserID" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
+          <Property Name="ConfirmedByUserID" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
+          <Property Name="CancelledByUserID" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="UpdatedAt" Type="DateTime" Precision="7" />
+          <Property Name="ConfirmedAt" Type="DateTime" Precision="7" />
+          <Property Name="CancelledAt" Type="DateTime" Precision="7" />
+          <NavigationProperty Name="StockDisposalDetails" Relationship="Self.FK_StockDisposalDetails_StockDisposals" FromRole="StockDisposals" ToRole="StockDisposalDetails" />
+          <NavigationProperty Name="Warehouses" Relationship="Self.FK_StockDisposals_Warehouses" FromRole="StockDisposals" ToRole="Warehouses" />
+        </EntityType>
+        <EntityType Name="StockInDetails">
+          <Key>
+            <PropertyRef Name="StockInDetailID" />
+          </Key>
+          <Property Name="StockInDetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StockInID" Type="Int32" Nullable="false" />
+          <Property Name="VariantID" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="UnitCost" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="LineTotal" Type="Decimal" Precision="19" Scale="2" annotation:StoreGeneratedPattern="Computed" />
+          <NavigationProperty Name="ProductVariants" Relationship="Self.FK_StockInDetails_ProductVariants" FromRole="StockInDetails" ToRole="ProductVariants" />
+          <NavigationProperty Name="StockIns" Relationship="Self.FK_StockInDetails_StockIns" FromRole="StockInDetails" ToRole="StockIns" />
+          <NavigationProperty Name="StockReturnDetails" Relationship="Self.FK_StockReturnDetails_SourceStockIn" FromRole="StockInDetails" ToRole="StockReturnDetails" />
+        </EntityType>
+        <EntityType Name="StockIns">
+          <Key>
+            <PropertyRef Name="StockInID" />
+          </Key>
+          <Property Name="StockInID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StockInCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SupplierID" Type="Int32" Nullable="false" />
+          <Property Name="WarehouseID" Type="Int32" Nullable="false" />
+          <Property Name="StockInDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="Status" Type="Byte" Nullable="false" />
+          <Property Name="Note" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedByUserID" Type="Int32" />
+          <Property Name="ConfirmedByUserID" Type="Int32" />
+          <Property Name="CancelledByUserID" Type="Int32" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="UpdatedAt" Type="DateTime" Precision="7" />
+          <Property Name="ConfirmedAt" Type="DateTime" Precision="7" />
+          <Property Name="CancelledAt" Type="DateTime" Precision="7" />
+          <NavigationProperty Name="StockInDetails" Relationship="Self.FK_StockInDetails_StockIns" FromRole="StockIns" ToRole="StockInDetails" />
+          <NavigationProperty Name="Suppliers" Relationship="Self.FK_StockIns_Suppliers" FromRole="StockIns" ToRole="Suppliers" />
+          <NavigationProperty Name="Warehouses" Relationship="Self.FK_StockIns_Warehouses" FromRole="StockIns" ToRole="Warehouses" />
+        </EntityType>
+        <EntityType Name="StockOutDetails">
+          <Key>
+            <PropertyRef Name="StockOutDetailID" />
+          </Key>
+          <Property Name="StockOutDetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StockOutID" Type="Int32" Nullable="false" />
+          <Property Name="VariantID" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="UnitCost" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="LineCost" Type="Decimal" Precision="19" Scale="4" annotation:StoreGeneratedPattern="Computed" />
+          <NavigationProperty Name="ProductVariants" Relationship="Self.FK_StockOutDetails_ProductVariants" FromRole="StockOutDetails" ToRole="ProductVariants" />
+          <NavigationProperty Name="StockOuts" Relationship="Self.FK_StockOutDetails_StockOuts" FromRole="StockOutDetails" ToRole="StockOuts" />
+        </EntityType>
+        <EntityType Name="StockOuts">
+          <Key>
+            <PropertyRef Name="StockOutID" />
+          </Key>
+          <Property Name="StockOutID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StockOutCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="WarehouseID" Type="Int32" Nullable="false" />
+          <Property Name="OrderID" Type="Int32" />
+          <Property Name="StockOutDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="StockOutType" Type="Byte" Nullable="false" />
+          <Property Name="Status" Type="Byte" Nullable="false" />
+          <Property Name="Note" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedByUserID" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
+          <Property Name="ConfirmedByUserID" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
+          <Property Name="CancelledByUserID" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="UpdatedAt" Type="DateTime" Precision="7" />
+          <Property Name="ConfirmedAt" Type="DateTime" Precision="7" />
+          <Property Name="CancelledAt" Type="DateTime" Precision="7" />
+          <NavigationProperty Name="StockOutDetails" Relationship="Self.FK_StockOutDetails_StockOuts" FromRole="StockOuts" ToRole="StockOutDetails" />
+          <NavigationProperty Name="Warehouses" Relationship="Self.FK_StockOuts_Warehouses" FromRole="StockOuts" ToRole="Warehouses" />
+        </EntityType>
+        <EntityType Name="StockReturnDetails">
+          <Key>
+            <PropertyRef Name="StockReturnDetailID" />
+          </Key>
+          <Property Name="StockReturnDetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StockReturnID" Type="Int32" Nullable="false" />
+          <Property Name="VariantID" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="UnitCost" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="SourceOrderDetailID" Type="Int32" />
+          <Property Name="SourceStockInDetailID" Type="Int32" />
+          <NavigationProperty Name="ProductVariants" Relationship="Self.FK_StockReturnDetails_ProductVariants" FromRole="StockReturnDetails" ToRole="ProductVariants" />
+          <NavigationProperty Name="StockInDetails" Relationship="Self.FK_StockReturnDetails_SourceStockIn" FromRole="StockReturnDetails" ToRole="StockInDetails" />
+          <NavigationProperty Name="StockReturns" Relationship="Self.FK_StockReturnDetails_StockReturns" FromRole="StockReturnDetails" ToRole="StockReturns" />
+        </EntityType>
+        <EntityType Name="StockReturns">
+          <Key>
+            <PropertyRef Name="StockReturnID" />
+          </Key>
+          <Property Name="StockReturnID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ReturnCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="WarehouseID" Type="Int32" Nullable="false" />
+          <Property Name="SupplierID" Type="Int32" />
+          <Property Name="OrderID" Type="Int32" />
+          <Property Name="ReturnType" Type="Byte" Nullable="false" />
+          <Property Name="ReturnDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="Reason" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Note" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Byte" Nullable="false" />
+          <Property Name="CreatedByUserID" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
+          <Property Name="ConfirmedByUserID" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
+          <Property Name="CancelledByUserID" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="UpdatedAt" Type="DateTime" Precision="7" />
+          <Property Name="ConfirmedAt" Type="DateTime" Precision="7" />
+          <Property Name="CancelledAt" Type="DateTime" Precision="7" />
+          <NavigationProperty Name="StockReturnDetails" Relationship="Self.FK_StockReturnDetails_StockReturns" FromRole="StockReturns" ToRole="StockReturnDetails" />
+          <NavigationProperty Name="Suppliers" Relationship="Self.FK_StockReturns_Suppliers" FromRole="StockReturns" ToRole="Suppliers" />
+          <NavigationProperty Name="Warehouses" Relationship="Self.FK_StockReturns_Warehouses" FromRole="StockReturns" ToRole="Warehouses" />
+        </EntityType>
+        <EntityType Name="StockTransferDetails">
+          <Key>
+            <PropertyRef Name="StockTransferDetailID" />
+          </Key>
+          <Property Name="StockTransferDetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StockTransferID" Type="Int32" Nullable="false" />
+          <Property Name="VariantID" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="UnitCost" Type="Decimal" Precision="18" Scale="4" />
+          <NavigationProperty Name="ProductVariants" Relationship="Self.FK_StockTransferDetails_ProductVariants" FromRole="StockTransferDetails" ToRole="ProductVariants" />
+          <NavigationProperty Name="StockTransfers" Relationship="Self.FK_StockTransferDetails_StockTransfers" FromRole="StockTransferDetails" ToRole="StockTransfers" />
+        </EntityType>
+        <EntityType Name="StockTransfers">
+          <Key>
+            <PropertyRef Name="StockTransferID" />
+          </Key>
+          <Property Name="StockTransferID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TransferCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FromWarehouseID" Type="Int32" Nullable="false" />
+          <Property Name="ToWarehouseID" Type="Int32" Nullable="false" />
+          <Property Name="TransferDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="Status" Type="Byte" Nullable="false" />
+          <Property Name="Note" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedByUserID" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
+          <Property Name="ConfirmedByUserID" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
+          <Property Name="CancelledByUserID" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="UpdatedAt" Type="DateTime" Precision="7" />
+          <Property Name="ConfirmedAt" Type="DateTime" Precision="7" />
+          <Property Name="CancelledAt" Type="DateTime" Precision="7" />
+          <NavigationProperty Name="StockTransferDetails" Relationship="Self.FK_StockTransferDetails_StockTransfers" FromRole="StockTransfers" ToRole="StockTransferDetails" />
+          <NavigationProperty Name="Warehouses" Relationship="Self.FK_StockTransfers_FromWarehouse" FromRole="StockTransfers" ToRole="Warehouses" />
+          <NavigationProperty Name="Warehouses1" Relationship="Self.FK_StockTransfers_ToWarehouse" FromRole="StockTransfers" ToRole="Warehouses" />
+        </EntityType>
+        <EntityType Name="Suppliers">
+          <Key>
+            <PropertyRef Name="SupplierID" />
+          </Key>
+          <Property Name="SupplierID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TaxCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="UpdatedAt" Type="DateTime" Precision="7" />
+          <NavigationProperty Name="StockIns" Relationship="Self.FK_StockIns_Suppliers" FromRole="Suppliers" ToRole="StockIns" />
+          <NavigationProperty Name="StockReturns" Relationship="Self.FK_StockReturns_Suppliers" FromRole="Suppliers" ToRole="StockReturns" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BranchID" Type="Int32" />
+          <Property Name="FullName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="UpdatedAt" Type="DateTime" Precision="7" />
+          <NavigationProperty Name="Branches" Relationship="Self.FK_Users_Branches" FromRole="Users" ToRole="Branches" />
+          <NavigationProperty Name="Roles" Relationship="Self.UserRoles" FromRole="Users" ToRole="Roles" />
+        </EntityType>
+        <EntityType Name="VariantAttributes">
+          <Key>
+            <PropertyRef Name="VariantID" />
+            <PropertyRef Name="AttributeID" />
+          </Key>
+          <Property Name="VariantID" Type="Int32" Nullable="false" />
+          <Property Name="AttributeID" Type="Int32" Nullable="false" />
+          <Property Name="AttributeValueID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ProductAttributes" Relationship="Self.FK_VariantAttributes_Attributes" FromRole="VariantAttributes" ToRole="ProductAttributes" />
+          <NavigationProperty Name="ProductVariants" Relationship="Self.FK_VariantAttributes_ProductVariants" FromRole="VariantAttributes" ToRole="ProductVariants" />
+        </EntityType>
+        <EntityType Name="VariantCosts">
+          <Key>
+            <PropertyRef Name="VariantID" />
+          </Key>
+          <Property Name="VariantID" Type="Int32" Nullable="false" />
+          <Property Name="AverageUnitCost" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="UpdatedAt" Type="DateTime" Precision="7" />
+          <Property Name="RowVersion" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
+          <NavigationProperty Name="ProductVariants" Relationship="Self.FK_VariantCosts_ProductVariants" FromRole="VariantCosts" ToRole="ProductVariants" />
+        </EntityType>
+        <EntityType Name="Warehouses">
+          <Key>
+            <PropertyRef Name="WarehouseID" />
+          </Key>
+          <Property Name="WarehouseID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BranchID" Type="Int32" Nullable="false" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="WarehouseType" Type="Byte" Nullable="false" />
+          <Property Name="IsDefault" Type="Boolean" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="UpdatedAt" Type="DateTime" Precision="7" />
+          <NavigationProperty Name="Branches" Relationship="Self.FK_Warehouses_Branches" FromRole="Warehouses" ToRole="Branches" />
+          <NavigationProperty Name="InventoryStocks" Relationship="Self.FK_InventoryStocks_Warehouses" FromRole="Warehouses" ToRole="InventoryStocks" />
+          <NavigationProperty Name="InventoryTransactions" Relationship="Self.FK_InventoryTransactions_Warehouses" FromRole="Warehouses" ToRole="InventoryTransactions" />
+          <NavigationProperty Name="StockDisposals" Relationship="Self.FK_StockDisposals_Warehouses" FromRole="Warehouses" ToRole="StockDisposals" />
+          <NavigationProperty Name="StockIns" Relationship="Self.FK_StockIns_Warehouses" FromRole="Warehouses" ToRole="StockIns" />
+          <NavigationProperty Name="StockOuts" Relationship="Self.FK_StockOuts_Warehouses" FromRole="Warehouses" ToRole="StockOuts" />
+          <NavigationProperty Name="StockReturns" Relationship="Self.FK_StockReturns_Warehouses" FromRole="Warehouses" ToRole="StockReturns" />
+          <NavigationProperty Name="StockTransfers" Relationship="Self.FK_StockTransfers_FromWarehouse" FromRole="Warehouses" ToRole="StockTransfers" />
+          <NavigationProperty Name="StockTransfers1" Relationship="Self.FK_StockTransfers_ToWarehouse" FromRole="Warehouses" ToRole="StockTransfers" />
+        </EntityType>
+        <Association Name="FK_AttributeValues_Attributes">
+          <End Role="ProductAttributes" Type="Self.ProductAttributes" Multiplicity="1" />
+          <End Role="AttributeValues" Type="Self.AttributeValues" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductAttributes">
+              <PropertyRef Name="AttributeID" />
+            </Principal>
+            <Dependent Role="AttributeValues">
+              <PropertyRef Name="AttributeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BranchPriceLists_Branches">
+          <End Role="Branches" Type="Self.Branches" Multiplicity="1" />
+          <End Role="BranchPriceLists" Type="Self.BranchPriceLists" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Branches">
+              <PropertyRef Name="BranchID" />
+            </Principal>
+            <Dependent Role="BranchPriceLists">
+              <PropertyRef Name="BranchID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Branches">
+          <End Role="Branches" Type="Self.Branches" Multiplicity="0..1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Branches">
+              <PropertyRef Name="BranchID" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="BranchID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Warehouses_Branches">
+          <End Role="Branches" Type="Self.Branches" Multiplicity="1" />
+          <End Role="Warehouses" Type="Self.Warehouses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Branches">
+              <PropertyRef Name="BranchID" />
+            </Principal>
+            <Dependent Role="Warehouses">
+              <PropertyRef Name="BranchID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BranchPriceLists_PriceLists">
+          <End Role="PriceLists" Type="Self.PriceLists" Multiplicity="1" />
+          <End Role="BranchPriceLists" Type="Self.BranchPriceLists" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PriceLists">
+              <PropertyRef Name="PriceListID" />
+            </Principal>
+            <Dependent Role="BranchPriceLists">
+              <PropertyRef Name="PriceListID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Products_Brands">
+          <End Role="Brands" Type="Self.Brands" Multiplicity="0..1" />
+          <End Role="Products" Type="Self.Products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Brands">
+              <PropertyRef Name="BrandID" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="BrandID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Categories_ParentCategory">
+          <End Role="Categories" Type="Self.Categories" Multiplicity="0..1" />
+          <End Role="Categories1" Type="Self.Categories" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categories">
+              <PropertyRef Name="CategoryID" />
+            </Principal>
+            <Dependent Role="Categories1">
+              <PropertyRef Name="ParentCategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CategoryAttributes_Categories">
+          <End Role="Categories" Type="Self.Categories" Multiplicity="1" />
+          <End Role="CategoryAttributes" Type="Self.CategoryAttributes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categories">
+              <PropertyRef Name="CategoryID" />
+            </Principal>
+            <Dependent Role="CategoryAttributes">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Products_Categories">
+          <End Role="Categories" Type="Self.Categories" Multiplicity="1" />
+          <End Role="Products" Type="Self.Products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categories">
+              <PropertyRef Name="CategoryID" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CategoryAttributes_Attributes">
+          <End Role="ProductAttributes" Type="Self.ProductAttributes" Multiplicity="1" />
+          <End Role="CategoryAttributes" Type="Self.CategoryAttributes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductAttributes">
+              <PropertyRef Name="AttributeID" />
+            </Principal>
+            <Dependent Role="CategoryAttributes">
+              <PropertyRef Name="AttributeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InventoryStocks_ProductVariants">
+          <End Role="ProductVariants" Type="Self.ProductVariants" Multiplicity="1" />
+          <End Role="InventoryStocks" Type="Self.InventoryStocks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductVariants">
+              <PropertyRef Name="VariantID" />
+            </Principal>
+            <Dependent Role="InventoryStocks">
+              <PropertyRef Name="VariantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InventoryStocks_Warehouses">
+          <End Role="Warehouses" Type="Self.Warehouses" Multiplicity="1" />
+          <End Role="InventoryStocks" Type="Self.InventoryStocks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Warehouses">
+              <PropertyRef Name="WarehouseID" />
+            </Principal>
+            <Dependent Role="InventoryStocks">
+              <PropertyRef Name="WarehouseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InventoryTransactions_ProductVariants">
+          <End Role="ProductVariants" Type="Self.ProductVariants" Multiplicity="1" />
+          <End Role="InventoryTransactions" Type="Self.InventoryTransactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductVariants">
+              <PropertyRef Name="VariantID" />
+            </Principal>
+            <Dependent Role="InventoryTransactions">
+              <PropertyRef Name="VariantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InventoryTransactions_Warehouses">
+          <End Role="Warehouses" Type="Self.Warehouses" Multiplicity="1" />
+          <End Role="InventoryTransactions" Type="Self.InventoryTransactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Warehouses">
+              <PropertyRef Name="WarehouseID" />
+            </Principal>
+            <Dependent Role="InventoryTransactions">
+              <PropertyRef Name="WarehouseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PriceListItems_PriceLists">
+          <End Role="PriceLists" Type="Self.PriceLists" Multiplicity="1" />
+          <End Role="PriceListItems" Type="Self.PriceListItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PriceLists">
+              <PropertyRef Name="PriceListID" />
+            </Principal>
+            <Dependent Role="PriceListItems">
+              <PropertyRef Name="PriceListID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PriceListItems_ProductVariants">
+          <End Role="ProductVariants" Type="Self.ProductVariants" Multiplicity="1" />
+          <End Role="PriceListItems" Type="Self.PriceListItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductVariants">
+              <PropertyRef Name="VariantID" />
+            </Principal>
+            <Dependent Role="PriceListItems">
+              <PropertyRef Name="VariantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductSpecifications_Attributes">
+          <End Role="ProductAttributes" Type="Self.ProductAttributes" Multiplicity="1" />
+          <End Role="ProductSpecifications" Type="Self.ProductSpecifications" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductAttributes">
+              <PropertyRef Name="AttributeID" />
+            </Principal>
+            <Dependent Role="ProductSpecifications">
+              <PropertyRef Name="AttributeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VariantAttributes_Attributes">
+          <End Role="ProductAttributes" Type="Self.ProductAttributes" Multiplicity="1" />
+          <End Role="VariantAttributes" Type="Self.VariantAttributes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductAttributes">
+              <PropertyRef Name="AttributeID" />
+            </Principal>
+            <Dependent Role="VariantAttributes">
+              <PropertyRef Name="AttributeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductImages_Products">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="ProductImages" Type="Self.ProductImages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="ProductImages">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductSpecifications_Products">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="ProductSpecifications" Type="Self.ProductSpecifications" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="ProductSpecifications">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductVariants_Products">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="ProductVariants" Type="Self.ProductVariants" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="ProductVariants">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StockDisposalDetails_ProductVariants">
+          <End Role="ProductVariants" Type="Self.ProductVariants" Multiplicity="1" />
+          <End Role="StockDisposalDetails" Type="Self.StockDisposalDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductVariants">
+              <PropertyRef Name="VariantID" />
+            </Principal>
+            <Dependent Role="StockDisposalDetails">
+              <PropertyRef Name="VariantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StockInDetails_ProductVariants">
+          <End Role="ProductVariants" Type="Self.ProductVariants" Multiplicity="1" />
+          <End Role="StockInDetails" Type="Self.StockInDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductVariants">
+              <PropertyRef Name="VariantID" />
+            </Principal>
+            <Dependent Role="StockInDetails">
+              <PropertyRef Name="VariantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StockOutDetails_ProductVariants">
+          <End Role="ProductVariants" Type="Self.ProductVariants" Multiplicity="1" />
+          <End Role="StockOutDetails" Type="Self.StockOutDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductVariants">
+              <PropertyRef Name="VariantID" />
+            </Principal>
+            <Dependent Role="StockOutDetails">
+              <PropertyRef Name="VariantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StockReturnDetails_ProductVariants">
+          <End Role="ProductVariants" Type="Self.ProductVariants" Multiplicity="1" />
+          <End Role="StockReturnDetails" Type="Self.StockReturnDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductVariants">
+              <PropertyRef Name="VariantID" />
+            </Principal>
+            <Dependent Role="StockReturnDetails">
+              <PropertyRef Name="VariantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StockTransferDetails_ProductVariants">
+          <End Role="ProductVariants" Type="Self.ProductVariants" Multiplicity="1" />
+          <End Role="StockTransferDetails" Type="Self.StockTransferDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductVariants">
+              <PropertyRef Name="VariantID" />
+            </Principal>
+            <Dependent Role="StockTransferDetails">
+              <PropertyRef Name="VariantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VariantAttributes_ProductVariants">
+          <End Role="ProductVariants" Type="Self.ProductVariants" Multiplicity="1" />
+          <End Role="VariantAttributes" Type="Self.VariantAttributes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductVariants">
+              <PropertyRef Name="VariantID" />
+            </Principal>
+            <Dependent Role="VariantAttributes">
+              <PropertyRef Name="VariantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VariantCosts_ProductVariants">
+          <End Role="ProductVariants" Type="Self.ProductVariants" Multiplicity="1" />
+          <End Role="VariantCosts" Type="Self.VariantCosts" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="ProductVariants">
+              <PropertyRef Name="VariantID" />
+            </Principal>
+            <Dependent Role="VariantCosts">
+              <PropertyRef Name="VariantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StockDisposalDetails_StockDisposals">
+          <End Role="StockDisposals" Type="Self.StockDisposals" Multiplicity="1" />
+          <End Role="StockDisposalDetails" Type="Self.StockDisposalDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StockDisposals">
+              <PropertyRef Name="StockDisposalID" />
+            </Principal>
+            <Dependent Role="StockDisposalDetails">
+              <PropertyRef Name="StockDisposalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StockDisposals_Warehouses">
+          <End Role="Warehouses" Type="Self.Warehouses" Multiplicity="1" />
+          <End Role="StockDisposals" Type="Self.StockDisposals" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Warehouses">
+              <PropertyRef Name="WarehouseID" />
+            </Principal>
+            <Dependent Role="StockDisposals">
+              <PropertyRef Name="WarehouseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StockInDetails_StockIns">
+          <End Role="StockIns" Type="Self.StockIns" Multiplicity="1" />
+          <End Role="StockInDetails" Type="Self.StockInDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StockIns">
+              <PropertyRef Name="StockInID" />
+            </Principal>
+            <Dependent Role="StockInDetails">
+              <PropertyRef Name="StockInID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StockReturnDetails_SourceStockIn">
+          <End Role="StockInDetails" Type="Self.StockInDetails" Multiplicity="0..1" />
+          <End Role="StockReturnDetails" Type="Self.StockReturnDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StockInDetails">
+              <PropertyRef Name="StockInDetailID" />
+            </Principal>
+            <Dependent Role="StockReturnDetails">
+              <PropertyRef Name="SourceStockInDetailID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StockIns_Suppliers">
+          <End Role="Suppliers" Type="Self.Suppliers" Multiplicity="1" />
+          <End Role="StockIns" Type="Self.StockIns" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Suppliers">
+              <PropertyRef Name="SupplierID" />
+            </Principal>
+            <Dependent Role="StockIns">
+              <PropertyRef Name="SupplierID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StockIns_Warehouses">
+          <End Role="Warehouses" Type="Self.Warehouses" Multiplicity="1" />
+          <End Role="StockIns" Type="Self.StockIns" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Warehouses">
+              <PropertyRef Name="WarehouseID" />
+            </Principal>
+            <Dependent Role="StockIns">
+              <PropertyRef Name="WarehouseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StockOutDetails_StockOuts">
+          <End Role="StockOuts" Type="Self.StockOuts" Multiplicity="1" />
+          <End Role="StockOutDetails" Type="Self.StockOutDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StockOuts">
+              <PropertyRef Name="StockOutID" />
+            </Principal>
+            <Dependent Role="StockOutDetails">
+              <PropertyRef Name="StockOutID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StockOuts_Warehouses">
+          <End Role="Warehouses" Type="Self.Warehouses" Multiplicity="1" />
+          <End Role="StockOuts" Type="Self.StockOuts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Warehouses">
+              <PropertyRef Name="WarehouseID" />
+            </Principal>
+            <Dependent Role="StockOuts">
+              <PropertyRef Name="WarehouseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StockReturnDetails_StockReturns">
+          <End Role="StockReturns" Type="Self.StockReturns" Multiplicity="1" />
+          <End Role="StockReturnDetails" Type="Self.StockReturnDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StockReturns">
+              <PropertyRef Name="StockReturnID" />
+            </Principal>
+            <Dependent Role="StockReturnDetails">
+              <PropertyRef Name="StockReturnID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StockReturns_Suppliers">
+          <End Role="Suppliers" Type="Self.Suppliers" Multiplicity="0..1" />
+          <End Role="StockReturns" Type="Self.StockReturns" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Suppliers">
+              <PropertyRef Name="SupplierID" />
+            </Principal>
+            <Dependent Role="StockReturns">
+              <PropertyRef Name="SupplierID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StockReturns_Warehouses">
+          <End Role="Warehouses" Type="Self.Warehouses" Multiplicity="1" />
+          <End Role="StockReturns" Type="Self.StockReturns" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Warehouses">
+              <PropertyRef Name="WarehouseID" />
+            </Principal>
+            <Dependent Role="StockReturns">
+              <PropertyRef Name="WarehouseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StockTransferDetails_StockTransfers">
+          <End Role="StockTransfers" Type="Self.StockTransfers" Multiplicity="1" />
+          <End Role="StockTransferDetails" Type="Self.StockTransferDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StockTransfers">
+              <PropertyRef Name="StockTransferID" />
+            </Principal>
+            <Dependent Role="StockTransferDetails">
+              <PropertyRef Name="StockTransferID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StockTransfers_FromWarehouse">
+          <End Role="Warehouses" Type="Self.Warehouses" Multiplicity="1" />
+          <End Role="StockTransfers" Type="Self.StockTransfers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Warehouses">
+              <PropertyRef Name="WarehouseID" />
+            </Principal>
+            <Dependent Role="StockTransfers">
+              <PropertyRef Name="FromWarehouseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StockTransfers_ToWarehouse">
+          <End Role="Warehouses" Type="Self.Warehouses" Multiplicity="1" />
+          <End Role="StockTransfers" Type="Self.StockTransfers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Warehouses">
+              <PropertyRef Name="WarehouseID" />
+            </Principal>
+            <Dependent Role="StockTransfers">
+              <PropertyRef Name="ToWarehouseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="UserRoles">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="*" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="TechStoreDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AttributeValues" EntityType="Self.AttributeValues" />
+          <EntitySet Name="Branches" EntityType="Self.Branches" />
+          <EntitySet Name="BranchPriceLists" EntityType="Self.BranchPriceLists" />
+          <EntitySet Name="Brands" EntityType="Self.Brands" />
+          <EntitySet Name="Categories" EntityType="Self.Categories" />
+          <EntitySet Name="CategoryAttributes" EntityType="Self.CategoryAttributes" />
+          <EntitySet Name="InventoryStocks" EntityType="Self.InventoryStocks" />
+          <EntitySet Name="InventoryTransactions" EntityType="Self.InventoryTransactions" />
+          <EntitySet Name="PriceListItems" EntityType="Self.PriceListItems" />
+          <EntitySet Name="PriceLists" EntityType="Self.PriceLists" />
+          <EntitySet Name="ProductAttributes" EntityType="Self.ProductAttributes" />
+          <EntitySet Name="ProductImages" EntityType="Self.ProductImages" />
+          <EntitySet Name="Products" EntityType="Self.Products" />
+          <EntitySet Name="ProductSpecifications" EntityType="Self.ProductSpecifications" />
+          <EntitySet Name="ProductVariants" EntityType="Self.ProductVariants" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" />
+          <EntitySet Name="StockDisposalDetails" EntityType="Self.StockDisposalDetails" />
+          <EntitySet Name="StockDisposals" EntityType="Self.StockDisposals" />
+          <EntitySet Name="StockInDetails" EntityType="Self.StockInDetails" />
+          <EntitySet Name="StockIns" EntityType="Self.StockIns" />
+          <EntitySet Name="StockOutDetails" EntityType="Self.StockOutDetails" />
+          <EntitySet Name="StockOuts" EntityType="Self.StockOuts" />
+          <EntitySet Name="StockReturnDetails" EntityType="Self.StockReturnDetails" />
+          <EntitySet Name="StockReturns" EntityType="Self.StockReturns" />
+          <EntitySet Name="StockTransferDetails" EntityType="Self.StockTransferDetails" />
+          <EntitySet Name="StockTransfers" EntityType="Self.StockTransfers" />
+          <EntitySet Name="Suppliers" EntityType="Self.Suppliers" />
+          <EntitySet Name="Users" EntityType="Self.Users" />
+          <EntitySet Name="VariantAttributes" EntityType="Self.VariantAttributes" />
+          <EntitySet Name="VariantCosts" EntityType="Self.VariantCosts" />
+          <EntitySet Name="Warehouses" EntityType="Self.Warehouses" />
+          <AssociationSet Name="FK_AttributeValues_Attributes" Association="Self.FK_AttributeValues_Attributes">
+            <End Role="ProductAttributes" EntitySet="ProductAttributes" />
+            <End Role="AttributeValues" EntitySet="AttributeValues" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BranchPriceLists_Branches" Association="Self.FK_BranchPriceLists_Branches">
+            <End Role="Branches" EntitySet="Branches" />
+            <End Role="BranchPriceLists" EntitySet="BranchPriceLists" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Branches" Association="Self.FK_Users_Branches">
+            <End Role="Branches" EntitySet="Branches" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Warehouses_Branches" Association="Self.FK_Warehouses_Branches">
+            <End Role="Branches" EntitySet="Branches" />
+            <End Role="Warehouses" EntitySet="Warehouses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BranchPriceLists_PriceLists" Association="Self.FK_BranchPriceLists_PriceLists">
+            <End Role="PriceLists" EntitySet="PriceLists" />
+            <End Role="BranchPriceLists" EntitySet="BranchPriceLists" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Products_Brands" Association="Self.FK_Products_Brands">
+            <End Role="Brands" EntitySet="Brands" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Categories_ParentCategory" Association="Self.FK_Categories_ParentCategory">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="Categories1" EntitySet="Categories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CategoryAttributes_Categories" Association="Self.FK_CategoryAttributes_Categories">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="CategoryAttributes" EntitySet="CategoryAttributes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Products_Categories" Association="Self.FK_Products_Categories">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CategoryAttributes_Attributes" Association="Self.FK_CategoryAttributes_Attributes">
+            <End Role="ProductAttributes" EntitySet="ProductAttributes" />
+            <End Role="CategoryAttributes" EntitySet="CategoryAttributes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InventoryStocks_ProductVariants" Association="Self.FK_InventoryStocks_ProductVariants">
+            <End Role="ProductVariants" EntitySet="ProductVariants" />
+            <End Role="InventoryStocks" EntitySet="InventoryStocks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InventoryStocks_Warehouses" Association="Self.FK_InventoryStocks_Warehouses">
+            <End Role="Warehouses" EntitySet="Warehouses" />
+            <End Role="InventoryStocks" EntitySet="InventoryStocks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InventoryTransactions_ProductVariants" Association="Self.FK_InventoryTransactions_ProductVariants">
+            <End Role="ProductVariants" EntitySet="ProductVariants" />
+            <End Role="InventoryTransactions" EntitySet="InventoryTransactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InventoryTransactions_Warehouses" Association="Self.FK_InventoryTransactions_Warehouses">
+            <End Role="Warehouses" EntitySet="Warehouses" />
+            <End Role="InventoryTransactions" EntitySet="InventoryTransactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PriceListItems_PriceLists" Association="Self.FK_PriceListItems_PriceLists">
+            <End Role="PriceLists" EntitySet="PriceLists" />
+            <End Role="PriceListItems" EntitySet="PriceListItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PriceListItems_ProductVariants" Association="Self.FK_PriceListItems_ProductVariants">
+            <End Role="ProductVariants" EntitySet="ProductVariants" />
+            <End Role="PriceListItems" EntitySet="PriceListItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductSpecifications_Attributes" Association="Self.FK_ProductSpecifications_Attributes">
+            <End Role="ProductAttributes" EntitySet="ProductAttributes" />
+            <End Role="ProductSpecifications" EntitySet="ProductSpecifications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VariantAttributes_Attributes" Association="Self.FK_VariantAttributes_Attributes">
+            <End Role="ProductAttributes" EntitySet="ProductAttributes" />
+            <End Role="VariantAttributes" EntitySet="VariantAttributes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductImages_Products" Association="Self.FK_ProductImages_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="ProductImages" EntitySet="ProductImages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductSpecifications_Products" Association="Self.FK_ProductSpecifications_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="ProductSpecifications" EntitySet="ProductSpecifications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductVariants_Products" Association="Self.FK_ProductVariants_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="ProductVariants" EntitySet="ProductVariants" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StockDisposalDetails_ProductVariants" Association="Self.FK_StockDisposalDetails_ProductVariants">
+            <End Role="ProductVariants" EntitySet="ProductVariants" />
+            <End Role="StockDisposalDetails" EntitySet="StockDisposalDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StockInDetails_ProductVariants" Association="Self.FK_StockInDetails_ProductVariants">
+            <End Role="ProductVariants" EntitySet="ProductVariants" />
+            <End Role="StockInDetails" EntitySet="StockInDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StockOutDetails_ProductVariants" Association="Self.FK_StockOutDetails_ProductVariants">
+            <End Role="ProductVariants" EntitySet="ProductVariants" />
+            <End Role="StockOutDetails" EntitySet="StockOutDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StockReturnDetails_ProductVariants" Association="Self.FK_StockReturnDetails_ProductVariants">
+            <End Role="ProductVariants" EntitySet="ProductVariants" />
+            <End Role="StockReturnDetails" EntitySet="StockReturnDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StockTransferDetails_ProductVariants" Association="Self.FK_StockTransferDetails_ProductVariants">
+            <End Role="ProductVariants" EntitySet="ProductVariants" />
+            <End Role="StockTransferDetails" EntitySet="StockTransferDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VariantAttributes_ProductVariants" Association="Self.FK_VariantAttributes_ProductVariants">
+            <End Role="ProductVariants" EntitySet="ProductVariants" />
+            <End Role="VariantAttributes" EntitySet="VariantAttributes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VariantCosts_ProductVariants" Association="Self.FK_VariantCosts_ProductVariants">
+            <End Role="ProductVariants" EntitySet="ProductVariants" />
+            <End Role="VariantCosts" EntitySet="VariantCosts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StockDisposalDetails_StockDisposals" Association="Self.FK_StockDisposalDetails_StockDisposals">
+            <End Role="StockDisposals" EntitySet="StockDisposals" />
+            <End Role="StockDisposalDetails" EntitySet="StockDisposalDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StockDisposals_Warehouses" Association="Self.FK_StockDisposals_Warehouses">
+            <End Role="Warehouses" EntitySet="Warehouses" />
+            <End Role="StockDisposals" EntitySet="StockDisposals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StockInDetails_StockIns" Association="Self.FK_StockInDetails_StockIns">
+            <End Role="StockIns" EntitySet="StockIns" />
+            <End Role="StockInDetails" EntitySet="StockInDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StockReturnDetails_SourceStockIn" Association="Self.FK_StockReturnDetails_SourceStockIn">
+            <End Role="StockInDetails" EntitySet="StockInDetails" />
+            <End Role="StockReturnDetails" EntitySet="StockReturnDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StockIns_Suppliers" Association="Self.FK_StockIns_Suppliers">
+            <End Role="Suppliers" EntitySet="Suppliers" />
+            <End Role="StockIns" EntitySet="StockIns" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StockIns_Warehouses" Association="Self.FK_StockIns_Warehouses">
+            <End Role="Warehouses" EntitySet="Warehouses" />
+            <End Role="StockIns" EntitySet="StockIns" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StockOutDetails_StockOuts" Association="Self.FK_StockOutDetails_StockOuts">
+            <End Role="StockOuts" EntitySet="StockOuts" />
+            <End Role="StockOutDetails" EntitySet="StockOutDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StockOuts_Warehouses" Association="Self.FK_StockOuts_Warehouses">
+            <End Role="Warehouses" EntitySet="Warehouses" />
+            <End Role="StockOuts" EntitySet="StockOuts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StockReturnDetails_StockReturns" Association="Self.FK_StockReturnDetails_StockReturns">
+            <End Role="StockReturns" EntitySet="StockReturns" />
+            <End Role="StockReturnDetails" EntitySet="StockReturnDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StockReturns_Suppliers" Association="Self.FK_StockReturns_Suppliers">
+            <End Role="Suppliers" EntitySet="Suppliers" />
+            <End Role="StockReturns" EntitySet="StockReturns" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StockReturns_Warehouses" Association="Self.FK_StockReturns_Warehouses">
+            <End Role="Warehouses" EntitySet="Warehouses" />
+            <End Role="StockReturns" EntitySet="StockReturns" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StockTransferDetails_StockTransfers" Association="Self.FK_StockTransferDetails_StockTransfers">
+            <End Role="StockTransfers" EntitySet="StockTransfers" />
+            <End Role="StockTransferDetails" EntitySet="StockTransferDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StockTransfers_FromWarehouse" Association="Self.FK_StockTransfers_FromWarehouse">
+            <End Role="Warehouses" EntitySet="Warehouses" />
+            <End Role="StockTransfers" EntitySet="StockTransfers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StockTransfers_ToWarehouse" Association="Self.FK_StockTransfers_ToWarehouse">
+            <End Role="Warehouses" EntitySet="Warehouses" />
+            <End Role="StockTransfers" EntitySet="StockTransfers" />
+          </AssociationSet>
+          <AssociationSet Name="UserRoles" Association="Self.UserRoles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TechStoreDBModelStoreContainer" CdmEntityContainer="TechStoreDBEntities">
+          <EntitySetMapping Name="AttributeValues">
+            <EntityTypeMapping TypeName="TechStoreDBModel.AttributeValues">
+              <MappingFragment StoreEntitySet="AttributeValues">
+                <ScalarProperty Name="AttributeValueID" ColumnName="AttributeValueID" />
+                <ScalarProperty Name="AttributeID" ColumnName="AttributeID" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="DisplayOrder" ColumnName="DisplayOrder" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Branches">
+            <EntityTypeMapping TypeName="TechStoreDBModel.Branches">
+              <MappingFragment StoreEntitySet="Branches">
+                <ScalarProperty Name="BranchID" ColumnName="BranchID" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BranchPriceLists">
+            <EntityTypeMapping TypeName="TechStoreDBModel.BranchPriceLists">
+              <MappingFragment StoreEntitySet="BranchPriceLists">
+                <ScalarProperty Name="BranchPriceListID" ColumnName="BranchPriceListID" />
+                <ScalarProperty Name="BranchID" ColumnName="BranchID" />
+                <ScalarProperty Name="PriceListID" ColumnName="PriceListID" />
+                <ScalarProperty Name="IsDefault" ColumnName="IsDefault" />
+                <ScalarProperty Name="EffectiveFrom" ColumnName="EffectiveFrom" />
+                <ScalarProperty Name="EffectiveTo" ColumnName="EffectiveTo" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Brands">
+            <EntityTypeMapping TypeName="TechStoreDBModel.Brands">
+              <MappingFragment StoreEntitySet="Brands">
+                <ScalarProperty Name="BrandID" ColumnName="BrandID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Slug" ColumnName="Slug" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="LogoUrl" ColumnName="LogoUrl" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="TechStoreDBModel.Categories">
+              <MappingFragment StoreEntitySet="Categories">
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="ParentCategoryID" ColumnName="ParentCategoryID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Slug" ColumnName="Slug" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CategoryAttributes">
+            <EntityTypeMapping TypeName="TechStoreDBModel.CategoryAttributes">
+              <MappingFragment StoreEntitySet="CategoryAttributes">
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="AttributeID" ColumnName="AttributeID" />
+                <ScalarProperty Name="AttributeScope" ColumnName="AttributeScope" />
+                <ScalarProperty Name="IsRequired" ColumnName="IsRequired" />
+                <ScalarProperty Name="DisplayOrder" ColumnName="DisplayOrder" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InventoryStocks">
+            <EntityTypeMapping TypeName="TechStoreDBModel.InventoryStocks">
+              <MappingFragment StoreEntitySet="InventoryStocks">
+                <ScalarProperty Name="InventoryStockID" ColumnName="InventoryStockID" />
+                <ScalarProperty Name="WarehouseID" ColumnName="WarehouseID" />
+                <ScalarProperty Name="VariantID" ColumnName="VariantID" />
+                <ScalarProperty Name="QuantityOnHand" ColumnName="QuantityOnHand" />
+                <ScalarProperty Name="ReservedQuantity" ColumnName="ReservedQuantity" />
+                <ScalarProperty Name="AvailableQuantity" ColumnName="AvailableQuantity" />
+                <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
+                <ScalarProperty Name="RowVersion" ColumnName="RowVersion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InventoryTransactions">
+            <EntityTypeMapping TypeName="TechStoreDBModel.InventoryTransactions">
+              <MappingFragment StoreEntitySet="InventoryTransactions">
+                <ScalarProperty Name="InventoryTransactionID" ColumnName="InventoryTransactionID" />
+                <ScalarProperty Name="WarehouseID" ColumnName="WarehouseID" />
+                <ScalarProperty Name="VariantID" ColumnName="VariantID" />
+                <ScalarProperty Name="TransactionType" ColumnName="TransactionType" />
+                <ScalarProperty Name="QuantityChange" ColumnName="QuantityChange" />
+                <ScalarProperty Name="UnitCost" ColumnName="UnitCost" />
+                <ScalarProperty Name="AverageUnitCostAfter" ColumnName="AverageUnitCostAfter" />
+                <ScalarProperty Name="BalanceAfter" ColumnName="BalanceAfter" />
+                <ScalarProperty Name="ReferenceType" ColumnName="ReferenceType" />
+                <ScalarProperty Name="ReferenceID" ColumnName="ReferenceID" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PriceListItems">
+            <EntityTypeMapping TypeName="TechStoreDBModel.PriceListItems">
+              <MappingFragment StoreEntitySet="PriceListItems">
+                <ScalarProperty Name="PriceListItemID" ColumnName="PriceListItemID" />
+                <ScalarProperty Name="PriceListID" ColumnName="PriceListID" />
+                <ScalarProperty Name="VariantID" ColumnName="VariantID" />
+                <ScalarProperty Name="SellingPrice" ColumnName="SellingPrice" />
+                <ScalarProperty Name="CompareAtPrice" ColumnName="CompareAtPrice" />
+                <ScalarProperty Name="EffectiveFrom" ColumnName="EffectiveFrom" />
+                <ScalarProperty Name="EffectiveTo" ColumnName="EffectiveTo" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PriceLists">
+            <EntityTypeMapping TypeName="TechStoreDBModel.PriceLists">
+              <MappingFragment StoreEntitySet="PriceLists">
+                <ScalarProperty Name="PriceListID" ColumnName="PriceListID" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="PriceType" ColumnName="PriceType" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="IsDefault" ColumnName="IsDefault" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductAttributes">
+            <EntityTypeMapping TypeName="TechStoreDBModel.ProductAttributes">
+              <MappingFragment StoreEntitySet="ProductAttributes">
+                <ScalarProperty Name="AttributeID" ColumnName="AttributeID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductImages">
+            <EntityTypeMapping TypeName="TechStoreDBModel.ProductImages">
+              <MappingFragment StoreEntitySet="ProductImages">
+                <ScalarProperty Name="ImageID" ColumnName="ImageID" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="VariantID" ColumnName="VariantID" />
+                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+                <ScalarProperty Name="AltText" ColumnName="AltText" />
+                <ScalarProperty Name="DisplayOrder" ColumnName="DisplayOrder" />
+                <ScalarProperty Name="IsPrimary" ColumnName="IsPrimary" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="TechStoreDBModel.Products">
+              <MappingFragment StoreEntitySet="Products">
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="BrandID" ColumnName="BrandID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Slug" ColumnName="Slug" />
+                <ScalarProperty Name="ShortDescription" ColumnName="ShortDescription" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Thumbnail" ColumnName="Thumbnail" />
+                <ScalarProperty Name="IsFeatured" ColumnName="IsFeatured" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductSpecifications">
+            <EntityTypeMapping TypeName="TechStoreDBModel.ProductSpecifications">
+              <MappingFragment StoreEntitySet="ProductSpecifications">
+                <ScalarProperty Name="ProductSpecificationID" ColumnName="ProductSpecificationID" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="AttributeID" ColumnName="AttributeID" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="DisplayOrder" ColumnName="DisplayOrder" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductVariants">
+            <EntityTypeMapping TypeName="TechStoreDBModel.ProductVariants">
+              <MappingFragment StoreEntitySet="ProductVariants">
+                <ScalarProperty Name="VariantID" ColumnName="VariantID" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="SKU" ColumnName="SKU" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="TechStoreDBModel.Roles">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StockDisposalDetails">
+            <EntityTypeMapping TypeName="TechStoreDBModel.StockDisposalDetails">
+              <MappingFragment StoreEntitySet="StockDisposalDetails">
+                <ScalarProperty Name="StockDisposalDetailID" ColumnName="StockDisposalDetailID" />
+                <ScalarProperty Name="StockDisposalID" ColumnName="StockDisposalID" />
+                <ScalarProperty Name="VariantID" ColumnName="VariantID" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="UnitCost" ColumnName="UnitCost" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StockDisposals">
+            <EntityTypeMapping TypeName="TechStoreDBModel.StockDisposals">
+              <MappingFragment StoreEntitySet="StockDisposals">
+                <ScalarProperty Name="StockDisposalID" ColumnName="StockDisposalID" />
+                <ScalarProperty Name="DisposalCode" ColumnName="DisposalCode" />
+                <ScalarProperty Name="WarehouseID" ColumnName="WarehouseID" />
+                <ScalarProperty Name="DisposalDate" ColumnName="DisposalDate" />
+                <ScalarProperty Name="Reason" ColumnName="Reason" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+                <ScalarProperty Name="ConfirmedByUserID" ColumnName="ConfirmedByUserID" />
+                <ScalarProperty Name="CancelledByUserID" ColumnName="CancelledByUserID" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
+                <ScalarProperty Name="ConfirmedAt" ColumnName="ConfirmedAt" />
+                <ScalarProperty Name="CancelledAt" ColumnName="CancelledAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StockInDetails">
+            <EntityTypeMapping TypeName="TechStoreDBModel.StockInDetails">
+              <MappingFragment StoreEntitySet="StockInDetails">
+                <ScalarProperty Name="StockInDetailID" ColumnName="StockInDetailID" />
+                <ScalarProperty Name="StockInID" ColumnName="StockInID" />
+                <ScalarProperty Name="VariantID" ColumnName="VariantID" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="UnitCost" ColumnName="UnitCost" />
+                <ScalarProperty Name="LineTotal" ColumnName="LineTotal" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StockIns">
+            <EntityTypeMapping TypeName="TechStoreDBModel.StockIns">
+              <MappingFragment StoreEntitySet="StockIns">
+                <ScalarProperty Name="StockInID" ColumnName="StockInID" />
+                <ScalarProperty Name="StockInCode" ColumnName="StockInCode" />
+                <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
+                <ScalarProperty Name="WarehouseID" ColumnName="WarehouseID" />
+                <ScalarProperty Name="StockInDate" ColumnName="StockInDate" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+                <ScalarProperty Name="ConfirmedByUserID" ColumnName="ConfirmedByUserID" />
+                <ScalarProperty Name="CancelledByUserID" ColumnName="CancelledByUserID" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
+                <ScalarProperty Name="ConfirmedAt" ColumnName="ConfirmedAt" />
+                <ScalarProperty Name="CancelledAt" ColumnName="CancelledAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StockOutDetails">
+            <EntityTypeMapping TypeName="TechStoreDBModel.StockOutDetails">
+              <MappingFragment StoreEntitySet="StockOutDetails">
+                <ScalarProperty Name="StockOutDetailID" ColumnName="StockOutDetailID" />
+                <ScalarProperty Name="StockOutID" ColumnName="StockOutID" />
+                <ScalarProperty Name="VariantID" ColumnName="VariantID" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="UnitCost" ColumnName="UnitCost" />
+                <ScalarProperty Name="LineCost" ColumnName="LineCost" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StockOuts">
+            <EntityTypeMapping TypeName="TechStoreDBModel.StockOuts">
+              <MappingFragment StoreEntitySet="StockOuts">
+                <ScalarProperty Name="StockOutID" ColumnName="StockOutID" />
+                <ScalarProperty Name="StockOutCode" ColumnName="StockOutCode" />
+                <ScalarProperty Name="WarehouseID" ColumnName="WarehouseID" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="StockOutDate" ColumnName="StockOutDate" />
+                <ScalarProperty Name="StockOutType" ColumnName="StockOutType" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+                <ScalarProperty Name="ConfirmedByUserID" ColumnName="ConfirmedByUserID" />
+                <ScalarProperty Name="CancelledByUserID" ColumnName="CancelledByUserID" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
+                <ScalarProperty Name="ConfirmedAt" ColumnName="ConfirmedAt" />
+                <ScalarProperty Name="CancelledAt" ColumnName="CancelledAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StockReturnDetails">
+            <EntityTypeMapping TypeName="TechStoreDBModel.StockReturnDetails">
+              <MappingFragment StoreEntitySet="StockReturnDetails">
+                <ScalarProperty Name="StockReturnDetailID" ColumnName="StockReturnDetailID" />
+                <ScalarProperty Name="StockReturnID" ColumnName="StockReturnID" />
+                <ScalarProperty Name="VariantID" ColumnName="VariantID" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="UnitCost" ColumnName="UnitCost" />
+                <ScalarProperty Name="SourceOrderDetailID" ColumnName="SourceOrderDetailID" />
+                <ScalarProperty Name="SourceStockInDetailID" ColumnName="SourceStockInDetailID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StockReturns">
+            <EntityTypeMapping TypeName="TechStoreDBModel.StockReturns">
+              <MappingFragment StoreEntitySet="StockReturns">
+                <ScalarProperty Name="StockReturnID" ColumnName="StockReturnID" />
+                <ScalarProperty Name="ReturnCode" ColumnName="ReturnCode" />
+                <ScalarProperty Name="WarehouseID" ColumnName="WarehouseID" />
+                <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="ReturnType" ColumnName="ReturnType" />
+                <ScalarProperty Name="ReturnDate" ColumnName="ReturnDate" />
+                <ScalarProperty Name="Reason" ColumnName="Reason" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+                <ScalarProperty Name="ConfirmedByUserID" ColumnName="ConfirmedByUserID" />
+                <ScalarProperty Name="CancelledByUserID" ColumnName="CancelledByUserID" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
+                <ScalarProperty Name="ConfirmedAt" ColumnName="ConfirmedAt" />
+                <ScalarProperty Name="CancelledAt" ColumnName="CancelledAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StockTransferDetails">
+            <EntityTypeMapping TypeName="TechStoreDBModel.StockTransferDetails">
+              <MappingFragment StoreEntitySet="StockTransferDetails">
+                <ScalarProperty Name="StockTransferDetailID" ColumnName="StockTransferDetailID" />
+                <ScalarProperty Name="StockTransferID" ColumnName="StockTransferID" />
+                <ScalarProperty Name="VariantID" ColumnName="VariantID" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="UnitCost" ColumnName="UnitCost" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StockTransfers">
+            <EntityTypeMapping TypeName="TechStoreDBModel.StockTransfers">
+              <MappingFragment StoreEntitySet="StockTransfers">
+                <ScalarProperty Name="StockTransferID" ColumnName="StockTransferID" />
+                <ScalarProperty Name="TransferCode" ColumnName="TransferCode" />
+                <ScalarProperty Name="FromWarehouseID" ColumnName="FromWarehouseID" />
+                <ScalarProperty Name="ToWarehouseID" ColumnName="ToWarehouseID" />
+                <ScalarProperty Name="TransferDate" ColumnName="TransferDate" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+                <ScalarProperty Name="ConfirmedByUserID" ColumnName="ConfirmedByUserID" />
+                <ScalarProperty Name="CancelledByUserID" ColumnName="CancelledByUserID" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
+                <ScalarProperty Name="ConfirmedAt" ColumnName="ConfirmedAt" />
+                <ScalarProperty Name="CancelledAt" ColumnName="CancelledAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Suppliers">
+            <EntityTypeMapping TypeName="TechStoreDBModel.Suppliers">
+              <MappingFragment StoreEntitySet="Suppliers">
+                <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="TaxCode" ColumnName="TaxCode" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="TechStoreDBModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="BranchID" ColumnName="BranchID" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VariantAttributes">
+            <EntityTypeMapping TypeName="TechStoreDBModel.VariantAttributes">
+              <MappingFragment StoreEntitySet="VariantAttributes">
+                <ScalarProperty Name="VariantID" ColumnName="VariantID" />
+                <ScalarProperty Name="AttributeID" ColumnName="AttributeID" />
+                <ScalarProperty Name="AttributeValueID" ColumnName="AttributeValueID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VariantCosts">
+            <EntityTypeMapping TypeName="TechStoreDBModel.VariantCosts">
+              <MappingFragment StoreEntitySet="VariantCosts">
+                <ScalarProperty Name="VariantID" ColumnName="VariantID" />
+                <ScalarProperty Name="AverageUnitCost" ColumnName="AverageUnitCost" />
+                <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
+                <ScalarProperty Name="RowVersion" ColumnName="RowVersion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Warehouses">
+            <EntityTypeMapping TypeName="TechStoreDBModel.Warehouses">
+              <MappingFragment StoreEntitySet="Warehouses">
+                <ScalarProperty Name="WarehouseID" ColumnName="WarehouseID" />
+                <ScalarProperty Name="BranchID" ColumnName="BranchID" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="WarehouseType" ColumnName="WarehouseType" />
+                <ScalarProperty Name="IsDefault" ColumnName="IsDefault" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="UserRoles" TypeName="TechStoreDBModel.UserRoles" StoreEntitySet="UserRoles">
+            <EndProperty Name="Roles">
+              <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+            </EndProperty>
+            <EndProperty Name="Users">
+              <ScalarProperty Name="UserID" ColumnName="UserID" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

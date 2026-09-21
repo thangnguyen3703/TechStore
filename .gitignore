@@ -1,0 +1,16 @@
+.vs/
+**/.vs/
+
+bin/
+obj/
+**/bin/
+**/obj/
+
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+packages/
+
+appsettings.Development.json

@@ -1,0 +1,212 @@
+@{
+    ViewData["Title"] = "Forms & Input";
+}
+
+
+    <!-- START: Page Header Banner -->
+    <div class="page-header">
+      <div>
+        <h1 class="page-title">Forms & Input Elements</h1>
+        <p class="page-subtitle">Premium layout elements, toggle switches, and input decorators.</p>
+      </div>
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb mb-0">
+          <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="Dashboard" asp-action="Index" class="text-decoration-none text-muted-green">Home</a></li>
+          <li class="breadcrumb-item text-muted-green">Components</li>
+          <li class="breadcrumb-item active text-main" aria-current="page">Forms & Input</li>
+        </ol>
+      </nav>
+    </div>
+    <!-- END: Page Header Banner -->
+
+    <!-- START: Form Component Row Grid Layout -->
+    <div class="row g-4 mb-4">
+
+      <!-- Column 1: Basic controls -->
+      <div class="col-12 col-lg-6">
+        <div class="card border-light shadow-sm p-4 h-100">
+          <h5 class="card-title mb-4">Basic Fields</h5>
+
+          <!-- Text input -->
+          <div class="mb-3">
+            <label for="basicText" class="form-label-custom">Username</label>
+            <input type="text" class="form-control-custom" id="basicText" placeholder="Enter username">
+          </div>
+
+          <!-- Email input -->
+          <div class="mb-3">
+            <label for="basicEmail" class="form-label-custom">Email Address</label>
+            <input type="email" class="form-control-custom" id="basicEmail" placeholder="name@example.com">
+            <span class="text-muted">We'll never share your email with anyone else.</span>
+          </div>
+
+          <!-- Password input -->
+          <div class="mb-3">
+            <label for="basicPassword" class="form-label-custom">Password</label>
+            <input type="password" class="form-control-custom" id="basicPassword"
+              placeholder="Enter your secure password">
+          </div>
+
+          <!-- Disabled State -->
+          <div class="mb-3">
+            <label for="basicDisabled" class="form-label-custom">Disabled Input</label>
+            <input type="text" class="form-control-custom" id="basicDisabled" value="This input field is disabled"
+              disabled>
+          </div>
+
+          <!-- Readonly State -->
+          <div class="mb-0">
+            <label for="basicReadonly" class="form-label-custom">Read-only Input</label>
+            <input type="text" class="form-control-custom" id="basicReadonly" value="This field is read-only" readonly>
+          </div>
+        </div>
+      </div>
+
+      <!-- Column 2: Selection & Validation -->
+      <div class="col-12 col-lg-6">
+        <div class="card border-light shadow-sm p-4 h-100">
+          <h5 class="card-title mb-4">Selection & Validation</h5>
+
+          <!-- Custom dropdown select -->
+          <div class="mb-3">
+            <label for="selectControl" class="form-label-custom">Preferred Theme</label>
+            <select class="form-select-custom" id="selectControl">
+              <option selected disabled>Choose a visual theme...</option>
+              <option value="light">Spark Light Theme</option>
+              <option value="dark">Spark Dark Green Theme</option>
+              <option value="forest">Forest Breeze Accent</option>
+            </select>
+          </div>
+
+          <!-- Textarea layout -->
+          <div class="mb-3">
+            <label for="textareaControl" class="form-label-custom">Description Bio</label>
+            <textarea class="form-control-custom" id="textareaControl" rows="3"
+              placeholder="Tell us about yourself..."></textarea>
+          </div>
+
+          <!-- Valid feedback block -->
+          <div class="mb-3">
+            <label for="validInput" class="form-label-custom">Valid State Field</label>
+            <input type="text" class="form-control-custom is-valid-custom" id="validInput" value="spark_admin_user">
+            <div class="form-feedback-custom valid-custom">
+              <i class="bi bi-check-circle-fill"></i> Username is available!
+            </div>
+          </div>
+
+          <!-- Invalid feedback block -->
+          <div class="mb-0">
+            <label for="invalidInput" class="form-label-custom">Invalid State Field</label>
+            <input type="email" class="form-control-custom is-invalid-custom" id="invalidInput"
+              value="invalid-email-format">
+            <div class="form-feedback-custom invalid-custom">
+              <i class="bi bi-exclamation-circle-fill"></i> Please enter a valid email address.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Column 3: Sizing & Groups -->
+      <div class="col-12 col-lg-6">
+        <div class="card border-light shadow-sm p-4 h-100">
+          <h5 class="card-title mb-4">Input Sizing & Decorator Groups</h5>
+
+          <!-- Sizing examples -->
+          <div class="mb-4">
+            <div class="mb-2">
+              <label class="form-label-custom">Large Control</label>
+              <input type="text" class="form-control-custom form-control-custom-lg" placeholder="Large text box input">
+            </div>
+            <div class="mb-2">
+              <label class="form-label-custom">Default Control</label>
+              <input type="text" class="form-control-custom" placeholder="Default text box input">
+            </div>
+            <div>
+              <label class="form-label-custom">Small Control</label>
+              <input type="text" class="form-control-custom form-control-custom-sm" placeholder="Small text box input">
+            </div>
+          </div>
+
+          <h6 class="mb-3">Input Groups</h6>
+
+          <!-- Prepend group -->
+          <div class="mb-3">
+            <div class="input-group-custom">
+              <span class="input-group-text-custom">@@</span>
+              <input type="text" class="form-control-custom" placeholder="Username">
+            </div>
+          </div>
+
+          <!-- Append group -->
+          <div class="mb-3">
+            <div class="input-group-custom">
+              <input type="text" class="form-control-custom" placeholder="Recipient username">
+              <span class="input-group-text-custom">@@sparkadmin.web.id</span>
+            </div>
+          </div>
+
+          <!-- Prepend + Append Icon group -->
+          <div class="mb-0">
+            <div class="input-group-custom">
+              <span class="input-group-text-custom"><i class="bi bi-wallet2"></i></span>
+              <input type="text" class="form-control-custom" placeholder="Billing Amount">
+              <span class="input-group-text-custom">USD</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Column 4: Checkboxes, Radios & iOS Switches -->
+      <div class="col-12 col-lg-6">
+        <div class="card border-light shadow-sm p-4 h-100">
+          <h5 class="card-title mb-4">Checkboxes, Radios & Switches</h5>
+
+          <h6 class="mb-3">Custom Checkboxes</h6>
+          <div class="mb-4">
+            <div class="form-check-custom">
+              <input class="form-check-input-custom" type="checkbox" id="checkActive" checked>
+              <label class="form-check-label" for="checkActive">Checked custom option</label>
+            </div>
+            <div class="form-check-custom">
+              <input class="form-check-input-custom" type="checkbox" id="checkInactive">
+              <label class="form-check-label" for="checkInactive">Unchecked custom option</label>
+            </div>
+            <div class="form-check-custom">
+              <input class="form-check-input-custom" type="checkbox" id="checkDisabled" disabled checked>
+              <label class="form-check-label" for="checkDisabled">Disabled checked option</label>
+            </div>
+          </div>
+
+          <h6 class="mb-3">Custom Radio Elements</h6>
+          <div class="mb-4">
+            <div class="form-check-custom">
+              <input class="form-check-input-custom" type="radio" name="radioGroup" id="radioOne" checked>
+              <label class="form-check-label" for="radioOne">Radio option selection A</label>
+            </div>
+            <div class="form-check-custom">
+              <input class="form-check-input-custom" type="radio" name="radioGroup" id="radioTwo">
+              <label class="form-check-label" for="radioTwo">Radio option selection B</label>
+            </div>
+          </div>
+
+          <h6 class="mb-3">Premium Switch Controls (iOS Style)</h6>
+          <div>
+            <div class="form-switch-custom">
+              <input class="form-switch-input-custom" type="checkbox" id="switchOne" checked>
+              <label class="form-switch-label" for="switchOne">Enable email notifications</label>
+            </div>
+            <div class="form-switch-custom">
+              <input class="form-switch-input-custom" type="checkbox" id="switchTwo">
+              <label class="form-switch-label" for="switchTwo">Keep profile visibility public</label>
+            </div>
+            <div class="form-switch-custom">
+              <input class="form-switch-input-custom" type="checkbox" id="switchThree" disabled>
+              <label class="form-switch-label" for="switchThree">Enable background synchronization (Disabled)</label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <!-- END: Form Component Row Grid Layout -->
+
