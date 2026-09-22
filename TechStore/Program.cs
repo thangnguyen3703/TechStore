@@ -1,8 +1,17 @@
-﻿using TechStore.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using TechStore.Data;
+using TechStore.Infrastructure.Contexts;
 using TechStore.Service;
 
 var builder = WebApplication.CreateBuilder(args);
+var connectionString = builder.Configuration
+    .GetConnectionString("DefaultConnection")
+    ?? throw new InvalidOperationException(
+        "Connection string 'DefaultConnection' not found.");
 
+// Đăng ký DbContext
+builder.Services.AddDbContext<TechStoreDbContext>(options =>
+    options.UseSqlServer(connectionString));
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<TechStoreDBEntities>();

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 using TechStore.Service;
 using TechStore.Shared_ViewModels;
 namespace TechStore.Areas.Admin.Controllers
@@ -11,9 +12,9 @@ namespace TechStore.Areas.Admin.Controllers
         {
             _branchService = branchService;
         }
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 1, int pageSize = 10)
         {
-            var branches = await _branchService.GetAllBranchesAsync();
+            var branches = await _branchService.GetAllBranchesAsync(page, pageSize);
 
             return View(branches);
         }
@@ -35,6 +36,51 @@ namespace TechStore.Areas.Admin.Controllers
                 ModelState.AddModelError("", "Failed to create branch.");
             }
             return View(model);
+        }
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            var branch= await _branchService.GetBranchByID(id);
+            if (branch == null)
+                return NotFound();
+            return View(branch);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(BranchFormViewModel model)
+        {
+            if (!ModelState.IsValid)
+                return View(model);
+
+            var result = await _branchService.UpdateBranch(model);
+
+            if (!result)
+                return NotFound();
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var result = await _branchService.DeleteBranch(id);
+
+            if (!result)
+                return NotFound();
+
+            TempData["SuccessMessage"] = "Xóa chi nhánh thành công.";
+
+            return RedirectToAction(nameof(Index));
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ToggleStatus(int id)
+        {
+            await _branchService.ToggleStatus(id);
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }

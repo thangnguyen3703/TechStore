@@ -9,7 +9,12 @@ namespace TechStore.Service
 {
     public interface IBranchService
     {
-        Task<List<BranchListViewModel>> GetAllBranchesAsync();
+        Task<PagedResult<BranchListViewModel>> GetAllBranchesAsync(int page = 1, int pageSize = 10);
         Task<bool> AddBranchAsync(BranchFormViewModel model);
+        Task<BranchFormViewModel?> GetBranchByID(int id);
+        Task<bool> UpdateBranch(BranchFormViewModel model);
+        Task<bool> DeleteBranch(int id);
+        Task<bool> ToggleStatus(int id);
+
     }
 }

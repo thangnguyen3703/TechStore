@@ -1,40 +1,81 @@
 ﻿@using TechStore.Shared_ViewModels
-@model List<BranchListViewModel>
+@using TechStore.Service
+@model PagedResult<BranchListViewModel>
 
 @{
     ViewData["Title"] = "Quản lý chi nhánh";
 }
+
+<style>
+    .branch-table-card {
+        height: 650px;
+        overflow: hidden;
+    }
+
+        .branch-table-card .card-body {
+            flex: 1;
+            min-height: 0;
+            overflow: auto;
+        }
+
+        .branch-table-card .card-footer {
+            flex: 0 0 70px;
+            background: #fff;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Khi bảng dài thì scroll nhưng header vẫn đứng yên */
+        .branch-table-card thead th {
+            position: sticky;
+            top: 0;
+            background: #fff;
+            z-index: 2;
+        }
+</style>
+
 
 <div class="container-fluid">
 
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
             <h4 class="mb-1">Quản lý chi nhánh</h4>
-            <p class="text-muted mb-0">Danh sách các chi nhánh trong hệ thống</p>
+            <p class="text-muted mb-0">
+                Danh sách các chi nhánh trong hệ thống
+            </p>
         </div>
 
         <a asp-area="Admin"
            asp-controller="Branch"
            asp-action="Create"
            class="btn btn-primary">
+
             <i class="fas fa-plus me-1"></i>
             Thêm chi nhánh
+
         </a>
     </div>
 
-    <div class="card shadow-sm">
+
+    <div class="card shadow-sm branch-table-card d-flex flex-column">
+
+        <!-- Vùng dữ liệu -->
         <div class="card-body">
 
-            @if (Model == null || !Model.Any())
+            @if (Model == null || !Model.Items.Any())
             {
-                <div class="text-center py-5">
-                    <p class="text-muted mb-0">Chưa có chi nhánh nào.</p>
+                <div class="d-flex justify-content-center align-items-center h-100">
+                    <p class="text-muted mb-0">
+                        Chưa có chi nhánh nào.
+                    </p>
                 </div>
             }
             else
             {
                 <div class="table-responsive">
-                    <table class="table table-hover align-middle">
+
+                    <table class="table table-hover align-middle mb-0">
+
                         <thead>
                             <tr>
                                 <th style="width: 80px;">#</th>
@@ -43,28 +84,37 @@
                                 <th>Địa chỉ</th>
                                 <th>Số điện thoại</th>
                                 <th>Email</th>
-                                <th class="text-center">Trạng thái</th>
-                                <th class="text-center" style="width: 150px;">
+                                <th class="text-center">
+                                    Trạng thái
+                                </th>
+
+                                <th class="text-center"
+                                    style="width: 150px;">
                                     Thao tác
                                 </th>
                             </tr>
                         </thead>
 
                         <tbody>
+
                             @{
-                                var index = 1;
+                                var index =
+                                (Model.Page - 1) * Model.PageSize + 1;
                             }
 
-                            @foreach (var branch in Model)
+                            @foreach (var branch in Model.Items)
                             {
                                 <tr>
+
                                     <td>@index</td>
 
                                     <td>
                                         <strong>@branch.Code</strong>
                                     </td>
 
-                                    <td>@branch.Name</td>
+                                    <td>
+                                        @branch.Name
+                                    </td>
 
                                     <td>
                                         @(string.IsNullOrWhiteSpace(branch.Address)
@@ -85,6 +135,7 @@
                             </td>
 
                                     <td class="text-center">
+
                                 @if (branch.IsActive)
                                         {
                                             <span class="badge bg-success">
@@ -97,18 +148,26 @@
                                                 Ngừng hoạt động
                                             </span>
                                         }
+
                                     </td>
 
+
                                     <td class="text-center">
+
+                                        <!-- Edit -->
                                         <a asp-area="Admin"
                                            asp-controller="Branch"
                                            asp-action="Edit"
                                            asp-route-id="@branch.BranchId"
                                            class="btn btn-sm btn-warning"
                                            title="Chỉnh sửa">
+
                                             <i class="fas fa-edit"></i>
+
                                         </a>
 
+
+                                        <!-- Toggle Status -->
                                         <form asp-area="Admin"
                                               asp-controller="Branch"
                                               asp-action="ToggleStatus"
@@ -121,6 +180,7 @@
                                             <button type="submit"
                                                     class="btn btn-sm @(branch.IsActive ? "btn-danger" : "btn-success")"
                                                     title="@(branch.IsActive ? "Ngừng hoạt động" : "Kích hoạt")">
+
                                                 @if (branch.IsActive)
                                                 {
                                                     <i class="fas fa-lock"></i>
@@ -129,18 +189,36 @@
                                                 {
                                                     <i class="fas fa-unlock"></i>
                                                 }
+
                                             </button>
+
                                         </form>
+
                                     </td>
+
                                 </tr>
 
                                 index++;
                             }
+
                         </tbody>
+
                     </table>
+
                 </div>
             }
 
         </div>
+
+
+        <!-- Pagination cố định dưới card -->
+        <div class="card-footer">
+
+            <partial name="_Pagination"
+                     model="Model" />
+
+        </div>
+
     </div>
+
 </div>

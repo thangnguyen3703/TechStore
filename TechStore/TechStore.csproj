@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -8,10 +8,6 @@
 
   <ItemGroup>
     <Content Remove="App.Config" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="App.Config" />
   </ItemGroup>
 
   <ItemGroup>
@@ -26,8 +22,17 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TechStore.Data\TechStore.Data.csproj" />
+    <ProjectReference Include="..\TechStore.Infrastructure\TechStore.Infrastructure.csproj" />
     <ProjectReference Include="..\TechStore.Service\TechStore.Service.csproj" />
     <ProjectReference Include="..\TechStore.Shared-ViewModels\TechStore.Shared-ViewModels.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="packages\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="App.Config" />
   </ItemGroup>
 
 </Project>
